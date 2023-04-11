@@ -1,7 +1,7 @@
 const Host = {
-    ROOT: !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? "http://localhost:3005" : "",
+    ROOT: !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? "http://localhost:3005" : "https://zaki-06qu.onrender.com",
     PREFIX: "/v1/api",
-    FRONTEND: !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? "http://localhost:3005" : "",
+    FRONTEND: !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? "http://localhost:3000" : "",
   }
   
   const ApiEndpoints = {  
