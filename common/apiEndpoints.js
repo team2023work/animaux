@@ -1,7 +1,7 @@
 const Host = {
     ROOT: !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? "http://localhost:3005" : "",
     PREFIX: "/v1/api",
-    FRONTEND: !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? "http://localhost:3000" : "",
+    FRONTEND: !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? "http://localhost:3005" : "",
   }
   
   const ApiEndpoints = {  
@@ -31,7 +31,7 @@ const Host = {
 
 
       Categories: {
-          route: `${Host.PREFIX}/Categories`,
+          route: `${Host.PREFIX}/categories`,
           list: `/list`,
           create: `/create`,
           edit: `/edit/:id`,

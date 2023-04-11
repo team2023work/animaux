@@ -53,10 +53,10 @@ const Signup = (req, res) => {
 
 // edit User
 const Edit = (req, res) => {
-    const { fullname, password, email, phone, avatar, address, isAccountSuspended } = req.body
+    const { fullname, email, phone, avatar, address, isAccountSuspended } = req.body
     const { id } = req.params
     
-    UsersService.Edit(id, fullname, password, email, phone, avatar, address, isAccountSuspended).then(result => {
+    UsersService.Edit(id, fullname, email, phone, avatar, address, isAccountSuspended).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })

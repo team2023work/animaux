@@ -84,7 +84,7 @@ const Signal = (id) => {
                 if (!post) {
                     reject("did not match any document")
                 } else {
-                    resolve("copied")
+                    resolve("modified")
                 }
             }).catch(err => { reject(err) })
 

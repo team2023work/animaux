@@ -20,4 +20,4 @@ const mediaSchema = mongoose.Schema({
 })
 
 
-module.exports = mongoose.models.media || mongoose.model("media", mediaSchema)
+module.exports = mongoose.model("media", mediaSchema)

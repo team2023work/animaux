@@ -4,9 +4,9 @@ const codes = require("../common/codes");
 
 // get category
 const Get = (req, res) => {
-    const { sort, limit, skip, filter, expend } = req.query
+    const { sort, limit, skip, filter } = req.query
 
-    categoriesService.Get(sort, limit, skip, filter, expend).then(result => {
+    categoriesService.Get(sort, limit, skip, filter).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
@@ -38,7 +38,7 @@ const Edit = (req, res) => {
 
 // remove category
 const Remove = (req, res) => {
-    const { id } = req.body
+    const { id } = req.params
 
     categoriesService.Remove(id).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })

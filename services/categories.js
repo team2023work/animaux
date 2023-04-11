@@ -2,12 +2,12 @@ const categoriesModel = require("../models/categories")
 const { OC, FC } = require("../common/getChecker")
  
 // get category
-const Get = (sort, limit, skip, filter, expend) => {
+const Get = (sort, limit, skip, filter) => {
 
     return new Promise((resolve, reject) => { // get category
 
 
-        categoriesModel.find(FC(filter), {},OC(skip, limit, sort)).populate(expend)
+        categoriesModel.find(FC(filter), {},OC(skip, limit, sort))
             .then(categories => {
 
                 if (categories.length <= 0) {

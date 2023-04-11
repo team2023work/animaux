@@ -1,7 +1,7 @@
 const { check } = require('express-validator')
 
 const Login = [
-    check("email").notEmpty().withMessage("email field is required").email("email field is required"),
+    check("email").notEmpty().withMessage("email field is required"),
     check("password").notEmpty().withMessage("password field is required"),
 ]
 

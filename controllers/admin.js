@@ -2,7 +2,7 @@ const AdminsService = require("../services/admin")
 const codes = require("../common/codes");
 
 
-// get user
+// get admin
 const Get = (req, res) => {
     const { sort, limit, skip, filter, expend } = req.query
 
@@ -53,10 +53,10 @@ const Create = (req, res) => {
 
 // edit User
 const Edit = (req, res) => {
-    const { fullname, email, avatar } = req.body
+    const { fullname, email, avatar, isAccountSuspended } = req.body
     const { id } = req.params
     
-    AdminsService.Edit(id, fullname, email, avatar).then(result => {
+    AdminsService.Edit(id, fullname, email, avatar, isAccountSuspended).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })

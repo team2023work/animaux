@@ -9,13 +9,15 @@ const createMedia = (url, type) => {
             const newMedia = new mediaModel({ url, type })
 
             newMedia.save().then(doc => {
-                resolve(doc)
+                resolve(doc._id)
 
             }).catch(err => {
                 if (fs.existsSync("./images/" + url)) {
                     fs.unlink("./images/" + url, () => { })
+                }else{
+                    reject(err) 
                 }
-                reject(err)
+               
             })
 
     })

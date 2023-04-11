@@ -1,7 +1,8 @@
 const JWt = require("jsonwebtoken")
-const codes = require("../common/codes");
+const codes = require("../../common/codes");
 
 const verifyToken = token => {
+
   try {
     const tokenData = JWt.verify(token, process.env.JWT_SECRET)
     return tokenData

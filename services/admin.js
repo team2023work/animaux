@@ -4,16 +4,17 @@ const messages = require("../common/messages")
 const mailer = require("../common/mailer")
 const JWt = require("jsonwebtoken")
 
-// get user
+// get admin
 const Get = (sort, limit, skip, filter, expend) => {
 
-    return new Promise((resolve, reject) => { // get user
+    return new Promise((resolve, reject) => { // get admin
+        console.log("user");
 
         AdminsModel.find(FC(filter), {}, OC(skip, limit, sort)).populate(expend)
             .then(users => {
 
                 if (users.length <= 0) {
-                    reject("there are no users")
+                    reject("there are no admins")
                 }else{
                     resolve({ sort, skip, limit, value: users })
                 }
@@ -62,7 +63,7 @@ const Login = (email, password) => {
                 reject("email or password is incorrect")
             } else {
                     
-                const TOKEN = JWt.sign({ ...user._doc, rule: "admin" }, process.env.JWT_SECRET, { expiresIn: "7d" })
+                const TOKEN = JWt.sign({ ...user._doc, role: "admin" }, process.env.JWT_SECRET, { expiresIn: "7d" })
                 resolve({ TOKEN })
         
             }
@@ -73,13 +74,13 @@ const Login = (email, password) => {
 
 
 // edit User
-const Edit = (id, fullname, email, avatar) => {
+const Edit = (id, fullname, email, avatar, isAccountSuspended) => {
 
     return new Promise((resolve, reject) => { // update user
 
         // check id
         AdminsModel.findByIdAndUpdate({}, {
-            fullname, email, avatar, updatedAt: Date.now()
+            fullname, email, avatar, isAccountSuspended, updatedAt: Date.now()
         }).where("_id").equals(id) .then(user => {
 
                 if (!user) {
@@ -141,7 +142,6 @@ const Forgot = (email) => {
                 } else {
                     const password = (Math.random() + 1).toString(36).substring(4)
 
-                    //user.password = new AdminsModel().hashPassword(password)
                     user.password = user.hashPassword(password)
 
                     user.save()

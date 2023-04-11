@@ -31,6 +31,11 @@ const AdminSchema = mongoose.Schema({
     updatedAt: {
         type: Date,
         default: Date.now()
+    },
+    
+    isAccountSuspended: {
+        type: Boolean,
+        default: false
     }
 })
  
@@ -45,4 +50,4 @@ AdminSchema.methods.comparePassword = function (password) {
     return bcrypt.compareSync(password, this.password)
 }
 
-module.exports = mongoose.models.user ||  mongoose.model("admin", AdminSchema)
+module.exports = mongoose.model("admin", AdminSchema)

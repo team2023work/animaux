@@ -5,7 +5,6 @@ const PostSchema = mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        unique: true,
     }, 
     desc: {
         type: String,
@@ -78,4 +77,4 @@ const PostSchema = mongoose.Schema({
     },
 })
 
-module.exports = mongoose.models.post || mongoose.model("post", PostSchema)
+module.exports = mongoose.model("post", PostSchema)

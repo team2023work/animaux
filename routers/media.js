@@ -11,7 +11,7 @@ const { singleMedia } = require("../common/uploader")
 router.get(ApiEndpoints.Media.view, idValidator, MediaController.getMedia, handleError)
 
 // create
-router.get(ApiEndpoints.Media.create, authMiddleware, singleMedia("./images", "image") , MediaController.createMedia , handleError)
+router.post(ApiEndpoints.Media.create, authMiddleware, singleMedia("./images", "image") , MediaController.createMedia , handleError)
 
 
 module.exports = router

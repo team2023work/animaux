@@ -43,12 +43,13 @@ const Signup = (fullname, password, email, phone, avatar, address) => {
                     
                         mailer.sendMAIL(email, "Confirm your email Please", html)
                         .then((succ) => resolve("sent"))
-                        .catch(error => reject(error)) })
-
-                    .catch(err => { reject(err) })
+                        .catch(error => reject(error)) 
+        
+                      }).catch(err => { reject(err) })
 
             }
         }).catch(err => { reject(err) })
+
 
     })
 }
@@ -70,7 +71,7 @@ const Login = (email, password) => {
                     reject("your account is suspended")
                 } else if(!user.isEmailVerified){
 
-                    const html = messages.confimEmailMsg(doc._id)
+                    const html = messages.confimEmailMsg(user._id)
                     
                     mailer.sendMAIL(email, "Confirm your email Please", html)
                     .then((succ) => resolve("sent"))
@@ -78,7 +79,7 @@ const Login = (email, password) => {
    
                 }else{
                     
-                    const TOKEN = JWt.sign({ ...user._doc, rule: "user" }, process.env.JWT_SECRET, { expiresIn: "7d" })
+                    const TOKEN = JWt.sign({ ...user._doc, role: "user" }, process.env.JWT_SECRET, { expiresIn: "7d" })
                     resolve({ TOKEN })
                 }
             }
@@ -157,7 +158,6 @@ const Forgot = (email) => {
                 } else {
                     const password = (Math.random() + 1).toString(36).substring(4)
 
-                    //user.password = new UsersModel().hashPassword(password)
                     user.password = user.hashPassword(password)
 
                     user.save()
