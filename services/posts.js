@@ -11,11 +11,10 @@ const Get = (sort, limit, skip, filter, expend) => {
         expend =
         expend === "categoriesId" ? { path: 'categoriesId', model: "category" } :
         expend === "userId" ? { path: 'userId', model: "user" } :
-        expend === "user-avatar" ? { path: 'userId', model: "user", populate: { path: 'avatar', model: 'media' }} :
      
         expend === "all" ? [
             { path: 'categoriesId', model: "category"},
-            { path: 'user-avatar', model: "media", populate: { path: 'avatar', model: 'media' } },
+            { path: 'userId', model: "user" },
         ] : null
 
         PostsModel.find(FC(filter), {} , OC(skip, limit, sort) ).populate(expend)
