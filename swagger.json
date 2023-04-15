@@ -877,37 +877,75 @@
             }
         }
     },
+
+
+    
     "definitions": {
+
         "ApiResponse": {
             "type": "object",
             "properties": {
-                "code": {
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "type": {
-                    "type": "string"
-                },
-                "message": {
-                    "type": "string"
-                }
+                "code": { "type": "integer" },
+                "err": { "type": "boolean" },
+                "msg": { "type": "string"  }
             }
         },
+
         "Category": {
             "type": "object",
             "properties": {
-                "id": {
-                    "type": "integer",
-                    "format": "int64"
-                },
-                "name": {
-                    "type": "string"
-                }
-            },
-            "xml": {
-                "name": "Category"
+                "name": { "type": "string"  },
+                "description": { "type": "string"  },
+                "visible": { "type": "boolean"  },
+                "createdAt": { "type": "date"  },
+                "updatedAt": { "type": "date"  } 
             }
         },
+
+        
+        "Notification": {
+            "type": "object",
+            "properties": {
+                "name": { "type": "string"  },
+                "message": { "type": "string"  },
+                "postId": { "type": "postId"  },
+                "createdAt": { "type": "date"  },
+                "updatedAt": { "type": "date"  } 
+            }
+        },
+
+
+
+        
+        "Slider": {
+            "type": "object",
+            "properties": {
+                "title": { "type": "string"  },
+                "description": { "type": "string"  },
+                "visible": { "type": "boolean"  },
+                "image": { "type": "imageId"  },
+                "postId": { "type": "postId"  },
+                "createdAt": { "type": "date"  },
+                "updatedAt": { "type": "date"  } 
+            }
+        },
+
+        "Post": {
+            "type": "object",
+            "properties": {
+                "title": { "type": "string"  },
+                "desc": { "type": "string"  },
+                "visible": { "type": "boolean"  },
+                "visible": { "type": "boolean"  },
+                "image": { "type": "imageId"  },
+                "postId": { "type": "postId"  },
+                "createdAt": { "type": "date"  },
+                "updatedAt": { "type": "date"  } 
+            }
+        },
+
+
+
         "Pet": {
             "type": "object",
             "required": [

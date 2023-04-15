@@ -14,7 +14,7 @@ const CategorySchema = mongoose.Schema({
         trim: true,
     }, 
     visible: {
-        type: String,
+        type: Boolean,
         required: true,
         trim: true,
     },
