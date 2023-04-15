@@ -3,6 +3,8 @@ const app = express()
 const morgan = require("morgan")
 const cors = require("cors")
 const Connect = require("./database/connect")
+const swaggerUi = require('swagger-ui-express')
+const swaggerDocument = require('./swagger.json')
 const { ApiEndpoints, Host } = require("./common/apiEndpoints")
 
 //env file
@@ -40,6 +42,7 @@ app.use(ApiEndpoints.Categories.route, categories)
 app.use(ApiEndpoints.Posts.route, posts)
 app.use(ApiEndpoints.Sliders.route, sliders)
 app.use(ApiEndpoints.Notifications.route, notifications)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 app.use((req, res, next) => {
     res.status(404).json("Api not found") 

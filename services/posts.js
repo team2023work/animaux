@@ -19,13 +19,8 @@ const Get = (sort, limit, skip, filter, expend) => {
 
         PostsModel.find(FC(filter), {} , OC(skip, limit, sort) ).populate(expend)
         .then(posts => {
-
-            if (posts.length <= 0) {
-                reject("there are no posts")
-            }else{
-                resolve({ sort, skip, limit, value: posts, count: posts.length })
-
-            }
+            
+            resolve({ sort, skip, limit, value: posts, count: posts.length })
 
         }).catch(err => { reject(err) })
 

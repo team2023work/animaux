@@ -10,12 +10,7 @@ const Get = (sort, limit, skip, filter, expend) => {
         slidersModel.find(FC(filter), {},OC(skip, limit, sort)).populate(expend)
             .then(sliders => {
 
-                if (sliders.length <= 0) {
-                    reject("there are no sliders")
-                }else{
-
-                    resolve({ sort, skip, limit, value: sliders, count: sliders.length })
-                }
+             resolve({ sort, skip, limit, value: sliders, count: sliders.length })
 
             }).catch(err => {   reject(err) })
             

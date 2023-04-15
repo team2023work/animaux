@@ -10,12 +10,8 @@ const Get = (sort, limit, skip, filter) => {
         categoriesModel.find(FC(filter), {},OC(skip, limit, sort))
             .then(categories => {
 
-                if (categories.length <= 0) {
-                    reject("there are no categories")
-                }else{
-
-                    resolve({ sort, skip, limit, value: categories, count: categories.length })
-                }
+             resolve({ sort, skip, limit, value: categories, count: categories.length })
+             
 
             }).catch(err => {   reject(err) })
             

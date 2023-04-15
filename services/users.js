@@ -12,11 +12,7 @@ const Get = (sort, limit, skip, filter, expend) => {
         UsersModel.find(FC(filter), {}, OC(skip, limit, sort)).populate(expend)
             .then(users => {
 
-                if (users.length <= 0) {
-                    reject("there are no users")
-                }else{
-                    resolve({ sort, skip, limit, value: users, count: users.length })
-                }
+            resolve({ sort, skip, limit, value: users, count: users.length })
 
             }).catch(err => { reject(err) })
 

@@ -10,12 +10,7 @@ const Get = (sort, limit, skip, filter, expend) => {
         notificationsModel.find(FC(filter), {},OC(skip, limit, sort)).populate(expend)
             .then(notifications => {
 
-                if (notifications.length <= 0) {
-                    reject("there are no notifications")
-                }else{
-
-                    resolve({ sort, skip, limit, value: notifications, count: notifications.length })
-                }
+                resolve({ sort, skip, limit, value: notifications, count: notifications.length })
 
             }).catch(err => {   reject(err) })
             
