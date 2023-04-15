@@ -41,9 +41,9 @@ const Login = (req, res) => {
 
 // signup
 const Signup = (req, res) => { 
-    const { fullname, password, email, phone, avatar, address } = req.body
+    const { fullname, password, email, phone, address, localisation } = req.body
 
-    UsersService.Signup(fullname, password, email, phone, avatar, address ).then(result => {
+    UsersService.Signup(fullname, password, email, phone, address, localisation ).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
@@ -53,10 +53,10 @@ const Signup = (req, res) => {
 
 // edit User
 const Edit = (req, res) => {
-    const { fullname, email, phone, avatar, address, isAccountSuspended } = req.body
+    const { fullname, email, phone, avatar, address, isAccountSuspended, localisation } = req.body
     const { id } = req.params
     
-    UsersService.Edit(id, fullname, email, phone, avatar, address, isAccountSuspended).then(result => {
+    UsersService.Edit(id, fullname, email, phone, avatar, address, isAccountSuspended, localisation).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })

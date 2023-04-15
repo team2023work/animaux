@@ -935,10 +935,20 @@
             "properties": {
                 "title": { "type": "string"  },
                 "desc": { "type": "string"  },
+                "phone": { "type": "string"  },
+                "address": { "type": "string"  },
+                "gender": { "type": "string"  },
+                "copySignal": { "type": "integer"  },
                 "visible": { "type": "boolean"  },
-                "visible": { "type": "boolean"  },
+                "status": { "type": "boolean"  },
                 "image": { "type": "imageId"  },
-                "postId": { "type": "postId"  },
+                "userId": { "type": "userId"  },
+                "categoriesId": { "type": "categoriesId"  },
+                "localisation": { "type": "object",
+                "properties": {
+                    "desc": { "type": "longitude"  },
+                    "phone": { "type": "latitude"  }
+                } },
                 "createdAt": { "type": "date"  },
                 "updatedAt": { "type": "date"  } 
             }
