@@ -14,11 +14,12 @@ const Get = (req, res) => {
 }
 
 
+
 // add post
 const Add = (req, res) => {
-    const { title, desc, phone, address, gender, image, categoriesId, userId, status, visible } = req.body
+    const { title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation } = req.body
 
-    PostsService.Add(title, desc, phone, address, gender, image, categoriesId, userId, status, visible).then(result => {
+    PostsService.Add(title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
@@ -27,10 +28,10 @@ const Add = (req, res) => {
 
 // edit post
 const Edit = (req, res) => {
-    const { title, desc, phone, address, gender, image, categoriesId, userId, status, visible} = req.body
+    const { title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation} = req.body
     const { id } = req.params
     
-    PostsService.Edit(id , title, desc, phone, address, gender, image, categoriesId, userId, status, visible).then(result => {
+    PostsService.Edit(id , title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })

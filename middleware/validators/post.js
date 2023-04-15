@@ -11,6 +11,8 @@ const Add = [
     check("userId").notEmpty().withMessage("userId field is required"),
     check("status").notEmpty().withMessage("status field is required"),
     check("visible").notEmpty().withMessage("visible field is required"),
+    check("localisation.longitude").notEmpty().withMessage("longitude field is required"),
+    check("localisation.latitude").notEmpty().withMessage("latitude field is required"),
 ]
 
 const Edit = [
@@ -24,7 +26,15 @@ const Edit = [
     check("userId").notEmpty().withMessage("userId field is required"),
     check("status").notEmpty().withMessage("status field is required"),
     check("visible").notEmpty().withMessage("visible field is required"),
+    check("localisation.longitude").notEmpty().withMessage("longitude field is required"),
+    check("localisation.latitude").notEmpty().withMessage("latitude field is required"),
+    check("id").isLength({min: 10}).withMessage("id field is required"),
 ]
 
 
-module.exports = { Add, Edit }
+const Signal = [
+    check("id").isLength({min: 10}).withMessage("id field is required"),
+]
+
+
+module.exports = { Add, Edit, Signal }

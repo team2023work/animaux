@@ -28,7 +28,8 @@ const UserSchema = mongoose.Schema({
     avatar: {
         type: mongoose.Schema.Types.ObjectId,
         required: false,
-        ref : "media"
+        ref : "media",
+        default: "64355651eba58341e6576b33"
     },
 
     address: {
@@ -36,6 +37,24 @@ const UserSchema = mongoose.Schema({
         required: true,
         trim: true,
     },
+
+    localisation: {
+        type: {
+            longitude: {
+                type: String,
+                required: true,
+                trim: true,
+            },
+            latitude: {
+                type: String,
+                required: true,
+                trim: true,
+            }
+        },
+        required: true,
+        trim: true,
+    },
+    
     createdAt: {
         type: Date,
         default: Date.now()

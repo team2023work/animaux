@@ -15,7 +15,7 @@ const Get = (sort, limit, skip, filter, expend) => {
                 if (users.length <= 0) {
                     reject("there are no users")
                 }else{
-                    resolve({ sort, skip, limit, value: users })
+                    resolve({ sort, skip, limit, value: users, count: users.length })
                 }
 
             }).catch(err => { reject(err) })
@@ -25,7 +25,7 @@ const Get = (sort, limit, skip, filter, expend) => {
 
 
 // signup
-const Signup = (fullname, password, email, phone, avatar, address) => {
+const Signup = (fullname, password, email, phone, address, localisation) => {
 
     return new Promise((resolve, reject) => { // check email
 
@@ -35,7 +35,7 @@ const Signup = (fullname, password, email, phone, avatar, address) => {
                 reject("the email already exists")
             } else {
 
-                const newUser = new UsersModel({ fullname, email, phone, avatar, address, password: new UsersModel().hashPassword(password) })
+                const newUser = new UsersModel({ fullname, email, phone, address, localisation, password: new UsersModel().hashPassword(password) })
 
                 newUser.save()
                     .then(doc => {
@@ -90,13 +90,13 @@ const Login = (email, password) => {
 
 
 // edit User
-const Edit = (id, fullname, email, phone, avatar, address, isAccountSuspended) => {
+const Edit = (id, fullname, email, phone, avatar, address, isAccountSuspended, localisation) => {
 
     return new Promise((resolve, reject) => { // update user
 
         // check id
         UsersModel.findByIdAndUpdate({}, {
-            fullname, email, phone, avatar, address, isAccountSuspended, updatedAt: Date.now()
+            fullname, email, phone, avatar, address, isAccountSuspended, localisation, updatedAt: Date.now()
         }).where("_id").equals(id) .then(user => {
 
                 if (!user) {

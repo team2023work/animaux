@@ -16,7 +16,7 @@ const Get = (sort, limit, skip, filter, expend) => {
                 if (users.length <= 0) {
                     reject("there are no admins")
                 }else{
-                    resolve({ sort, skip, limit, value: users })
+                    resolve({ sort, skip, limit, value: users, count: users.length })
                 }
 
             }).catch(err => { reject(err) })
@@ -26,7 +26,7 @@ const Get = (sort, limit, skip, filter, expend) => {
 
 
 // create
-const Create = (fullname, password, email, avatar) => {
+const Create = (fullname, password, email) => {
 
     return new Promise((resolve, reject) => { // check email
 
@@ -36,7 +36,7 @@ const Create = (fullname, password, email, avatar) => {
                 reject("the email already exists")
             } else {
 
-                const newUser = new AdminsModel({ fullname, email, avatar, password: new AdminsModel().hashPassword(password) })
+                const newUser = new AdminsModel({ fullname, email, password: new AdminsModel().hashPassword(password) })
 
                 newUser.save()
                     .then(doc => {
@@ -74,13 +74,13 @@ const Login = (email, password) => {
 
 
 // edit User
-const Edit = (id, fullname, email, avatar, isAccountSuspended) => {
+const Edit = (id, fullname, email, isAccountSuspended) => {
 
     return new Promise((resolve, reject) => { // update user
 
         // check id
         AdminsModel.findByIdAndUpdate({}, {
-            fullname, email, avatar, isAccountSuspended, updatedAt: Date.now()
+            fullname, email, isAccountSuspended, updatedAt: Date.now()
         }).where("_id").equals(id) .then(user => {
 
                 if (!user) {

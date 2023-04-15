@@ -1,15 +1,16 @@
 const mongoose = require("mongoose")
 
 const CategorySchema = mongoose.Schema({
-    name: {
+    title: {
         type: String,
         required: true, 
         trim: true,
         unique: true,
     }, 
+
     description: {
         type: String,
-        required: false, 
+        required: true, 
         trim: true,
     }, 
     visible: {
@@ -17,6 +18,19 @@ const CategorySchema = mongoose.Schema({
         required: true,
         trim: true,
     },
+    postId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref : "post"
+    },
+
+    image: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: "media"
+    },
+
+
     createdAt: {
         type: Date,
         default: Date.now()
@@ -28,4 +42,4 @@ const CategorySchema = mongoose.Schema({
 })
 
 
-module.exports = mongoose.model("category", CategorySchema)
+module.exports = mongoose.model("slider", CategorySchema)

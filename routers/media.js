@@ -2,13 +2,14 @@
 const router = require("express").Router()
 const MediaController = require("../controllers/media")
 const handleError = require("../middleware/handleError")
-const idValidator = require("../middleware/idValidator")
 const authMiddleware = require("../middleware/jwt/authMiddleware")
-const { ApiEndpoints } = require("../common/apiEndpoints")
+const HandleValidatorError = require("../middleware/HandleValidatorError")
 const { singleMedia } = require("../common/uploader")
+const { ApiEndpoints } = require("../common/apiEndpoints")
+const { View } = require("../middleware/validators/media")
 
 // view 
-router.get(ApiEndpoints.Media.view, idValidator, MediaController.getMedia, handleError)
+router.get(ApiEndpoints.Media.view, View, HandleValidatorError, MediaController.getMedia, handleError)
 
 // create
 router.post(ApiEndpoints.Media.create, authMiddleware, singleMedia("./images", "image") , MediaController.createMedia , handleError)

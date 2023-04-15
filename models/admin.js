@@ -18,11 +18,6 @@ const AdminSchema = mongoose.Schema({
         required: true,
         trim: true,
     },
-    avatar: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: false,
-        ref : "media"
-    },
 
     createdAt: {
         type: Date,

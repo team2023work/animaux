@@ -1,46 +1,46 @@
-const categoriesService = require("../services/categories")
+const slidersService = require("../services/sliders")
 const codes = require("../common/codes");
 
 
-// get category
+// get slider
 const Get = (req, res) => {
-    const { sort, limit, skip, filter } = req.query
+    const { sort, limit, skip, filter, expend } = req.query
 
-    categoriesService.Get(sort, limit, skip, filter).then(result => {
+    slidersService.Get(sort, limit, skip, filter, expend).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })
 }
  
-// add category
+// add slider
 const Add = (req, res) => {
-    const { name , visible, description } = req.body
+    const { title, description ,visible, postId, image } = req.body
 
-    categoriesService.Add(name , visible, description).then(result => {
+    slidersService.Add(title, description ,visible, postId, image).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })
 }
 
-// edit category
+// edit slider
 const Edit = (req, res) => {
-    const { name , visible, description } = req.body
+    const { title, description ,visible, postId, image } = req.body
     const { id } = req.params
 
-    categoriesService.Edit(id, name , visible, description).then(result => {
+    slidersService.Edit(id, title, description ,visible, postId, image).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })
 }
 
-// remove category
+// remove slider
 const Remove = (req, res) => {
     const { id } = req.params
 
-    categoriesService.Remove(id).then(result => {
+    slidersService.Remove(id).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })

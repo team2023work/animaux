@@ -11,8 +11,9 @@ const SignUp = [
     check("email").notEmpty().withMessage("email field is required"),
     check("password").notEmpty().withMessage("password field is required"),
     check("phone").notEmpty().withMessage("phone field is required"),
-    check("avatar").notEmpty().withMessage("avatar field is required"),
     check("address").notEmpty().withMessage("address field is required"),
+    check("localisation.longitude").notEmpty().withMessage("longitude field is required"),
+    check("localisation.latitude").notEmpty().withMessage("latitude field is required"),
 ]
 
 const Forgot = [
@@ -22,6 +23,8 @@ const Forgot = [
 const Reset = [
     check("oldPass").notEmpty().withMessage("oldPass field is required"),
     check("newPass").notEmpty().withMessage("newPass field is required"),
+    check("id").isLength({min: 10}).withMessage("id field is required"),
+
 ]
 
 const Edit = [
@@ -32,7 +35,17 @@ const Edit = [
     check("avatar").notEmpty().withMessage("avatar field is required"),
     check("address").notEmpty().withMessage("address field is required"),
     check("isAccountSuspended").notEmpty().withMessage("isAccountSuspended field is required"),
+    check("localisation.longitude").notEmpty().withMessage("longitude field is required"),
+    check("localisation.latitude").notEmpty().withMessage("latitude field is required"),
+    check("id").isLength({min: 10}).withMessage("id field is required"),
+
+]
+
+const Confirm = [
+    check("id").isLength({min: 10}).withMessage("id field is required"),
+
 ]
 
 
-module.exports = { Edit, Login, SignUp, Forgot, Reset }
+
+module.exports = { Edit, Login, SignUp, Forgot, Reset, Confirm }

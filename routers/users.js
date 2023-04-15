@@ -3,10 +3,9 @@ const router = require("express").Router()
 const UserController = require("../controllers/users")
 const handleError = require("../middleware/handleError")
 const HandleValidatorError = require("../middleware/HandleValidatorError")
-const idValidator = require("../middleware/idValidator")
 const authMiddleware = require("../middleware/jwt/authMiddleware")
 const { ApiEndpoints } = require("../common/apiEndpoints")
-const { Edit , Login , SignUp , Forgot, Reset } = require("../middleware/validators/user")
+const { Edit , Login , SignUp , Forgot, Reset, Confirm } = require("../middleware/validators/user")
 
 // list 
 router.get(ApiEndpoints.Users.list, authMiddleware, UserController.Get ,handleError)
@@ -21,16 +20,16 @@ router.post(ApiEndpoints.Users.signup, SignUp, HandleValidatorError, UserControl
 router.post(ApiEndpoints.Users.login , Login, HandleValidatorError, UserController.Login)
 
 // edit 
-router.put(ApiEndpoints.Users.edit, authMiddleware, idValidator, Edit, HandleValidatorError, UserController.Edit , handleError)
+router.put(ApiEndpoints.Users.edit, authMiddleware, Edit, HandleValidatorError, UserController.Edit , handleError)
 
 // forgot
 router.put(ApiEndpoints.Users.forgot, Forgot, HandleValidatorError, UserController.Forgot)
 
 // confirm
-router.get(ApiEndpoints.Users.confirm , idValidator, UserController.Confirm)
+router.get(ApiEndpoints.Users.confirm, Confirm, HandleValidatorError,  UserController.Confirm)
 
 // reset
-router.put(ApiEndpoints.Users.reset, authMiddleware, idValidator, Reset, HandleValidatorError, UserController.Reset, handleError)
+router.put(ApiEndpoints.Users.reset, authMiddleware, Reset, HandleValidatorError, UserController.Reset, handleError)
 
 
 module.exports = router

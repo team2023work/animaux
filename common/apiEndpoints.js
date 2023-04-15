@@ -38,6 +38,21 @@ const Host = {
           delete: `/delete/:id`,
       },
 
+      
+      Sliders: {
+        route: `${Host.PREFIX}/sliders`,
+        list: `/list`,
+        create: `/create`,
+        edit: `/edit/:id`,
+        delete: `/delete/:id`,
+    },
+
+      Notifications: {
+          route: `${Host.PREFIX}/notifications`,
+          list: `/list`,
+          create: `/create`,
+      },
+
       Posts: {
           route: `${Host.PREFIX}/posts`,
           list: `/list`,

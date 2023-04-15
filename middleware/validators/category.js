@@ -2,12 +2,17 @@ const { check } = require('express-validator')
 
 const Add = [
     check("name").notEmpty().withMessage("name field is required"),
-    check("status").notEmpty().withMessage("status field is required"),
+    check("visible").notEmpty().withMessage("visible field is required"),
 ]
 
-const Edit = [
+const Edit = [ 
     check("name").notEmpty().withMessage("name field is required"),
-    check("status").notEmpty().withMessage("status field is required"),
+    check("visible").notEmpty().withMessage("visible field is required"),
+    check("id").isLength({min: 10}).withMessage("id field is required"),
 ]
 
-module.exports = { Add, Edit }
+const Delete = [ 
+    check("id").isLength({min: 10}).withMessage("id field is required"),
+]
+
+module.exports = { Add, Edit, Delete }

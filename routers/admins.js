@@ -2,11 +2,10 @@ const router = require("express").Router()
 const AdminController = require("../controllers/admin")
 const handleError = require("../middleware/handleError")
 const HandleValidatorError = require("../middleware/HandleValidatorError")
-const idValidator = require("../middleware/idValidator")
 const authMiddleware = require("../middleware/jwt/authMiddleware")
 const { ApiEndpoints } = require("../common/apiEndpoints")
 const { Edit , Login , Create , Forgot, Reset } = require("../middleware/validators/admin")
-
+ 
 // list 
 router.get(ApiEndpoints.Admins.list, authMiddleware, AdminController.Get ,handleError)
 
@@ -20,13 +19,13 @@ router.post(ApiEndpoints.Admins.create, authMiddleware, Create, HandleValidatorE
 router.post(ApiEndpoints.Admins.login , Login, HandleValidatorError, AdminController.Login)
 
 // edit 
-router.put(ApiEndpoints.Admins.edit, authMiddleware, idValidator, Edit, HandleValidatorError, AdminController.Edit , handleError)
+router.put(ApiEndpoints.Admins.edit, authMiddleware, Edit, HandleValidatorError, AdminController.Edit , handleError)
 
 // forgot
 router.put(ApiEndpoints.Admins.forgot, Forgot, HandleValidatorError, AdminController.Forgot)
 
 // reset
-router.put(ApiEndpoints.Admins.reset, authMiddleware, idValidator, Reset, HandleValidatorError, AdminController.Reset, handleError)
+router.put(ApiEndpoints.Admins.reset, authMiddleware, Reset, HandleValidatorError, AdminController.Reset, handleError)
 
 
 module.exports = router

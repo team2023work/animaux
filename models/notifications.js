@@ -1,22 +1,25 @@
 const mongoose = require("mongoose")
 
 const CategorySchema = mongoose.Schema({
-    name: {
+    title: {
         type: String,
         required: true, 
         trim: true,
         unique: true,
     }, 
-    description: {
+
+    message: {
         type: String,
-        required: false, 
+        required: true, 
         trim: true,
     }, 
-    visible: {
-        type: String,
-        required: true,
-        trim: true,
+
+     postId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: false,
+        ref : "post"
     },
+
     createdAt: {
         type: Date,
         default: Date.now()
@@ -28,4 +31,4 @@ const CategorySchema = mongoose.Schema({
 })
 
 
-module.exports = mongoose.model("category", CategorySchema)
+module.exports = mongoose.model("notification", CategorySchema)

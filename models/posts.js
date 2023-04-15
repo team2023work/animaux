@@ -67,6 +67,23 @@ const PostSchema = mongoose.Schema({
         trim: true
     },
 
+    localisation: {
+        type: {
+            longitude: {
+                type: String,
+                required: true,
+                trim: true,
+            },
+            latitude: {
+                type: String,
+                required: true,
+                trim: true,
+            }
+        },
+        required: true,
+        trim: true,
+    },
+
     createdAt: {
         type: Date,
         default: Date.now()

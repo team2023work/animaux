@@ -23,7 +23,7 @@ const Get = (sort, limit, skip, filter, expend) => {
             if (posts.length <= 0) {
                 reject("there are no posts")
             }else{
-                resolve({ sort, skip, limit, value: posts })
+                resolve({ sort, skip, limit, value: posts, count: posts.length })
 
             }
 
@@ -34,12 +34,12 @@ const Get = (sort, limit, skip, filter, expend) => {
 
 
 // add post
-const Add = (title, desc, phone, address, gender, image, categoriesId, userId, status, visible) => {
+const Add = (title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation) => {
     
     return new Promise((resolve, reject) => { // check post
 
 
-        const newPost = new PostsModel({ title, desc, phone, address, gender, image, categoriesId, userId, status, visible })
+        const newPost = new PostsModel({ title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation })
 
         newPost.save()
             .then(doc => { resolve(doc["_id"]) })
@@ -48,13 +48,13 @@ const Add = (title, desc, phone, address, gender, image, categoriesId, userId, s
 }
 
 // edit post
-const Edit = (id, title, desc, phone, address, gender, image, categoriesId, userId, status, visible) => {
+const Edit = (id, title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation) => {
 
     return new Promise((resolve, reject) => { // update post
 
         // check id
         PostsModel.findByIdAndUpdate({},
-            { title, desc, phone, address, gender, image, categoriesId, userId, status, visible, updatedAt: Date.now() }
+            { title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation, updatedAt: Date.now() }
         ).where("_id").equals(id)
             .then(post => {
 

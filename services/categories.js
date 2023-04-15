@@ -14,17 +14,17 @@ const Get = (sort, limit, skip, filter) => {
                     reject("there are no categories")
                 }else{
 
-                    resolve({ sort, skip, limit, value: categories })
+                    resolve({ sort, skip, limit, value: categories, count: categories.length })
                 }
 
             }).catch(err => {   reject(err) })
             
     })
 }
-
+ 
 
 // add category
-const Add = (name, status) => {
+const Add = (name, visible, description) => {
 
     return new Promise((resolve, reject) => { // check category
 
@@ -34,7 +34,7 @@ const Add = (name, status) => {
                 reject("the category already exists")
             } else {
 
-                const newCategory = new categoriesModel({ name, status })
+                const newCategory = new categoriesModel({ name, visible, description })
 
                 newCategory.save()
                     .then(doc => { resolve(doc["_id"]) })
@@ -49,12 +49,12 @@ const Add = (name, status) => {
 
 
 // edit category
-const Edit = (id , name , status) => {
+const Edit = (id , name , visible, description) => {
 
     return new Promise((resolve, reject) => { // update category
 
         // check id
-        categoriesModel.findByIdAndUpdate({}, { name, status, updatedAt: Date.now() }).where("_id").equals(id)
+        categoriesModel.findByIdAndUpdate({}, { name, visible, description, updatedAt: Date.now() }).where("_id").equals(id)
             .then(category => {
 
                 if (!category) {
