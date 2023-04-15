@@ -70,7 +70,7 @@ const Login = (email, password) => {
                     const html = messages.confimEmailMsg(user._id)
                     
                     mailer.sendMAIL(email, "Confirm your email Please", html)
-                    .then((succ) => resolve("sent"))
+                    .then((succ) => resolve("Confirm your email Please"))
                     .catch(error => reject(error))
    
                 }else{
