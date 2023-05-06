@@ -5,7 +5,7 @@ const mailer = require("../common/mailer")
 const JWt = require("jsonwebtoken")
 
 // get user
-const Get = (sort, limit, skip, filter, expend) => {
+const Get = (sort, limit, skip, filter, expend, q ) => {
 
     return new Promise((resolve, reject) => { // get user
 
@@ -33,15 +33,18 @@ const Signup = (fullname, password, email, phone, address, localisation) => {
 
                 const newUser = new UsersModel({ fullname, email, phone, address, localisation, password: new UsersModel().hashPassword(password) })
 
-                newUser.save()
-                    .then(doc => {
-                        const html = messages.confimEmailMsg(doc._id)
+
+                resolve(doc._id)
+
+                // newUser.save()
+                //     .then(doc => {
+                //         const html = messages.confimEmailMsg(doc._id)
                     
-                        mailer.sendMAIL(email, "Confirm your email Please", html)
-                        .then((succ) => resolve("sent"))
-                        .catch(error => reject(error)) 
+                //         mailer.sendMAIL(email, "Confirm your email Please", html)
+                //         .then((succ) => resolve("sent"))
+                //         .catch(error => reject(error)) 
         
-                      }).catch(err => { reject(err) })
+                //       }).catch(err => { reject(err) })
 
             }
         }).catch(err => { reject(err) })
@@ -65,15 +68,19 @@ const Login = (email, password) => {
 
                 if(user.isAccountSuspended){ 
                     reject("your account is suspended")
-                } else if(!user.isEmailVerified){
+                } 
+                
+                // else if(!user.isEmailVerified){
 
-                    const html = messages.confimEmailMsg(user._id)
+                //     const html = messages.confimEmailMsg(user._id)
                     
-                    mailer.sendMAIL(email, "Confirm your email Please", html)
-                    .then((succ) => resolve("Confirm your email Please"))
-                    .catch(error => reject(error))
+                //     mailer.sendMAIL(email, "Confirm your email Please", html)
+                //     .then((succ) => resolve("Confirm your email Please"))
+                //     .catch(error => reject(error))
    
-                }else{
+                // }
+                
+                else{
                     
                     const TOKEN = JWt.sign({ ...user._doc, role: "user" }, process.env.JWT_SECRET, { expiresIn: "7d" })
                     resolve({ TOKEN })
@@ -176,16 +183,16 @@ const Confirm = (id) => {
 
     return new Promise((resolve, reject) => { // update user
 
-        // check id
-        UsersModel.findByIdAndUpdate({}, { isEmailVerified: true, updatedAt: Date.now() }).where("_id").equals(id)
-            .then(user => {
+        // // check id
+        // UsersModel.findByIdAndUpdate({}, { isEmailVerified: true, updatedAt: Date.now() }).where("_id").equals(id)
+        //     .then(user => {
 
-                if (!user) {
-                    reject("did not match any document")
-                } else {
-                    resolve("modified")
-                }
-            }).catch(err => { reject(err) })
+        //         if (!user) {
+        //             reject("did not match any document")
+        //         } else {
+        //             resolve("modified")
+        //         }
+        //     }).catch(err => { reject(err) })
 
     })
 }

@@ -67,6 +67,18 @@ const PostSchema = mongoose.Schema({
         trim: true
     },
 
+    price: {
+        type: Number,
+        required: true,
+        trim: true
+    },
+
+    date: {
+        type: Date,
+        required: true,
+        trim: true
+    },
+
     localisation: {
         type: {
             longitude: {

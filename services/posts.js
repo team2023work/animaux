@@ -3,7 +3,7 @@ const { OC, FC } = require("../common/getChecker")
  
 
 // get post
-const Get = (sort, limit, skip, filter, expend) => {
+const Get = (sort, limit, skip, filter, expend, q ) => {
 
     return new Promise((resolve, reject) => { // get post
  
@@ -29,12 +29,12 @@ const Get = (sort, limit, skip, filter, expend) => {
 
 
 // add post
-const Add = (title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation) => {
+const Add = (title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation, price, date ) => {
     
     return new Promise((resolve, reject) => { // check post
 
 
-        const newPost = new PostsModel({ title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation })
+        const newPost = new PostsModel({ title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation, price, date  })
 
         newPost.save()
             .then(doc => { resolve(doc["_id"]) })
@@ -43,13 +43,13 @@ const Add = (title, desc, phone, address, gender, image, categoriesId, userId, s
 }
 
 // edit post
-const Edit = (id, title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation) => {
+const Edit = (id, title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation, price, date ) => {
 
     return new Promise((resolve, reject) => { // update post
 
         // check id
         PostsModel.findByIdAndUpdate({},
-            { title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation, updatedAt: Date.now() }
+            { title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation, price, date , updatedAt: Date.now() }
         ).where("_id").equals(id)
             .then(post => {
 

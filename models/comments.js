@@ -1,35 +1,22 @@
 const mongoose = require("mongoose")
 
-const CategorySchema = mongoose.Schema({
-    title: {
+const CommentSchema = mongoose.Schema({
+    content: {
         type: String,
-        required: true, 
-        trim: true,
-        unique: true,
-    }, 
-
-    description: {
-        type: String,
-        required: false, 
-        trim: true,
-    }, 
-    visible: {
-        type: Boolean,
         required: true,
         trim: true,
+    },
+
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref : "user"
     },
     postId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref : "post"
     },
-
-    image: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: "media"
-    },
-
 
     createdAt: {
         type: Date,
@@ -42,4 +29,5 @@ const CategorySchema = mongoose.Schema({
 })
 
 
-module.exports = mongoose.model("slider", CategorySchema)
+
+module.exports = mongoose.model("comment", CommentSchema)

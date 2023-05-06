@@ -61,6 +61,21 @@ const Host = {
           signal: `/signal/:id`,
       },
 
+      Comments: {
+          route: `${Host.PREFIX}/comments`,
+          list: `/list`,
+          create: `/create`,
+          edit: `/edit/:id`,
+          delete: `/delete/:id`,
+      },
+
+      Likes: {
+          route: `${Host.PREFIX}/likes`,
+          list: `/list`,
+          create: `/create`,
+          delete: `/delete/:id`,
+      },
+
       Media: {
           route: `${Host.PREFIX}/media`,
           view: `/view/:id`,

@@ -6,7 +6,7 @@ const Add = [
 ]
 
 const Edit = [ 
-    check("name").notEmpty().withMessage("name field is required"),
+   // check("name").notEmpty().withMessage("name field is required"),
     check("visible").notEmpty().withMessage("visible field is required"),
     check("id").isLength({min: 10}).withMessage("id field is required"),
 ]

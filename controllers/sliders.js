@@ -4,9 +4,9 @@ const codes = require("../common/codes");
 
 // get slider
 const Get = (req, res) => {
-    const { sort, limit, skip, filter, expend } = req.query
+    const { sort, limit, skip, filter, expend, q  } = req.query
 
-    slidersService.Get(sort, limit, skip, filter, expend).then(result => {
+    slidersService.Get(sort, limit, skip, filter, expend, q ).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })

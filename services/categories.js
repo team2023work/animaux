@@ -2,7 +2,7 @@ const categoriesModel = require("../models/categories")
 const { OC, FC } = require("../common/getChecker")
  
 // get category
-const Get = (sort, limit, skip, filter) => {
+const Get = (sort, limit, skip, filter, q ) => {
 
     return new Promise((resolve, reject) => { // get category
 

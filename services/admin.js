@@ -5,7 +5,7 @@ const mailer = require("../common/mailer")
 const JWt = require("jsonwebtoken")
 
 // get admin
-const Get = (sort, limit, skip, filter, expend) => {
+const Get = (sort, limit, skip, filter, expend, q ) => {
 
     return new Promise((resolve, reject) => { // get admin
         console.log("user");
@@ -19,6 +19,8 @@ const Get = (sort, limit, skip, filter, expend) => {
 
     })
 }
+
+// { "name": { "$regex": "^Da|^Ali", "$options": "i" } }
 
 
 // create

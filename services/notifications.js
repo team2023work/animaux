@@ -2,7 +2,7 @@ const notificationsModel = require("../models/notifications")
 const { OC, FC } = require("../common/getChecker")
  
 // get notification
-const Get = (sort, limit, skip, filter, expend) => {
+const Get = (sort, limit, skip, filter, expend, q ) => {
 
     return new Promise((resolve, reject) => { // get notification
 

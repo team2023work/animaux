@@ -70,7 +70,7 @@ const UserSchema = mongoose.Schema({
     } ,
     isAccountSuspended: {
         type: Boolean,
-        default: false
+        default: true
     }
 })
  
