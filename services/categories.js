@@ -1,5 +1,5 @@
 const categoriesModel = require("../models/categories")
-const { OC, FC } = require("../common/getChecker")
+const { OC, FC, QC } = require("../common/getChecker")
  
 // get category
 const Get = (sort, limit, skip, filter, q ) => {
@@ -7,7 +7,7 @@ const Get = (sort, limit, skip, filter, q ) => {
     return new Promise((resolve, reject) => { // get category
 
 
-        categoriesModel.find(FC(filter), {},OC(skip, limit, sort))
+        categoriesModel.find({ ...QC("categoty", q), ...FC(filter) }, {},OC(skip, limit, sort))
             .then(categories => {
 
              resolve({ sort, skip, limit, value: categories, count: categories.length })

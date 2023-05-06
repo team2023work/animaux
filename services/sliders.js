@@ -7,7 +7,7 @@ const Get = (sort, limit, skip, filter, expend, q ) => {
     return new Promise((resolve, reject) => { // get slider
 
 
-        slidersModel.find(FC(filter), {},OC(skip, limit, sort)).populate(expend)
+        slidersModel.find({ ...QC("slider", q), ...FC(filter) }, {},OC(skip, limit, sort)).populate(expend)
             .then(sliders => {
 
              resolve({ sort, skip, limit, value: sliders, count: sliders.length })

@@ -614,7 +614,7 @@
                 "gender": {
                     "type": "string"
                 },
-                "copySignal": {
+                "signalCount": {
                     "type": "integer"
                 },
                 "visible": {

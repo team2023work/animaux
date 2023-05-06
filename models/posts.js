@@ -30,7 +30,7 @@ const PostSchema = mongoose.Schema({
         trim: true,
     },
 
-    copySignal: {
+    signalCount: {
         type: Number,
         required: false,
         trim: true,

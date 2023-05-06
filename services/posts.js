@@ -1,5 +1,5 @@
 const PostsModel = require("../models/posts")
-const { OC, FC } = require("../common/getChecker")
+const { OC, FC, QC } = require("../common/getChecker")
  
 
 // get post
@@ -17,7 +17,8 @@ const Get = (sort, limit, skip, filter, expend, q ) => {
             { path: 'userId', model: "user" },
         ] : null
 
-        PostsModel.find(FC(filter), {} , OC(skip, limit, sort) ).populate(expend)
+        
+        PostsModel.find({ ...QC("post", q), ...FC(filter) }, {} , OC(skip, limit, sort) ).populate(expend)
         .then(posts => {
             
             resolve({ sort, skip, limit, value: posts, count: posts.length })
@@ -64,14 +65,13 @@ const Edit = (id, title, desc, phone, address, gender, image, categoriesId, user
 }
 
 
-
 // signal post  
 const Signal = (id) => {
 
     return new Promise((resolve, reject) => { // update post
 
         // check id
-        PostsModel.findByIdAndUpdate({}, { $inc: { copySignal: 1 } }).where("_id").equals(id)
+        PostsModel.findByIdAndUpdate({}, { $inc: { signalCount: 1 } }).where("_id").equals(id)
             .then(post => {
 
                 //check res here

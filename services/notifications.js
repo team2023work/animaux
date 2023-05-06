@@ -1,5 +1,5 @@
 const notificationsModel = require("../models/notifications")
-const { OC, FC } = require("../common/getChecker")
+const { OC, FC, QC } = require("../common/getChecker")
  
 // get notification
 const Get = (sort, limit, skip, filter, expend, q ) => {
@@ -7,7 +7,7 @@ const Get = (sort, limit, skip, filter, expend, q ) => {
     return new Promise((resolve, reject) => { // get notification
 
 
-        notificationsModel.find(FC(filter), {},OC(skip, limit, sort)).populate(expend)
+        notificationsModel.find({ ...QC("notification", q), ...FC(filter) }, {},OC(skip, limit, sort)).populate(expend)
             .then(notifications => {
 
                 resolve({ sort, skip, limit, value: notifications, count: notifications.length })

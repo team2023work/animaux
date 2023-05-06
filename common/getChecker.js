@@ -4,18 +4,27 @@ const FC = filter => {
 
 const QC = (s, q) => {
 
-    const adminFilter = { fullname, email }
-    const userFilter = { fullname, email, phone, address }
-    const postFilter = { fullname, email }
-    const categoryFilter = { fullname, email }
-    const likeFilter = { fullname, email}
-    const commentFilter = { fullname, email }
-    const sliderFilter = { fullname, email }
-    const notificationFilter = { title, description }
+    const adminFilter = [ "fullname", "email" ]
+    const userFilter = [ "fullname", "email", "phone", "address" ]
+    const postFilter = [ "title", "desc", "phone", "address", "gender"]
+    const categoryFilter = [ "name", "description" ]
+    const sliderFilter = [ "title", "description" ]
+    const notificationFilter = [ "title", "message" ]    
+    
+
+    let $or = []
+
+    $or =
+    (q && s) === "post" ? $or = postFilter.map(key => ({ [key]: { $regex: q, $options: "i" } })) :
+    (q && s) === "slider" ? $or = sliderFilter.map(key => ({ [key]: { $regex: q, $options: "i" } })) :
+    (q && s) === "category" ? $or = categoryFilter.map(key => ({ [key]: { $regex: q, $options: "i" } })) :
+    (q && s) === "notification" ? $or = notificationFilter.map(key => ({ [key]: { $regex: q, $options: "i" } })) :
+    (q && s) === "user" ? $or = userFilter.map(key => ({ [key]: { $regex: q, $options: "i" } })) :
+    (q && s) === "admin" ? $or = adminFilter.map(key => ({ [key]: { $regex: q, $options: "i" } })) :
+    $or
 
 
-
-    return q ? q && s === "admin" : {}
+    return !!$or.length ? {$or} : {}
 }
 
 const OC = (skip, limit, sort) => {
@@ -31,4 +40,4 @@ const OC = (skip, limit, sort) => {
 
 
 
-module.exports = { FC , OC }
+module.exports = { FC , OC , QC }

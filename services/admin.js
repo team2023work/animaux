@@ -1,5 +1,5 @@
 const AdminsModel = require("../models/admin")
-const { OC, FC } = require("../common/getChecker")
+const { OC, FC, QC } = require("../common/getChecker")
 const messages = require("../common/messages")
 const mailer = require("../common/mailer")
 const JWt = require("jsonwebtoken")
@@ -8,9 +8,8 @@ const JWt = require("jsonwebtoken")
 const Get = (sort, limit, skip, filter, expend, q ) => {
 
     return new Promise((resolve, reject) => { // get admin
-        console.log("user");
 
-        AdminsModel.find(FC(filter), {}, OC(skip, limit, sort)).populate(expend)
+        AdminsModel.find({ ...QC("admin", q), ...FC(filter) } , {}, OC(skip, limit, sort)).populate(expend)
             .then(users => {
 
                 resolve({ sort, skip, limit, value: users, count: users.length })
@@ -20,7 +19,6 @@ const Get = (sort, limit, skip, filter, expend, q ) => {
     })
 }
 
-// { "name": { "$regex": "^Da|^Ali", "$options": "i" } }
 
 
 // create

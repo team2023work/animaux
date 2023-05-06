@@ -1,5 +1,5 @@
 const UsersModel = require("../models/users")
-const { OC, FC } = require("../common/getChecker")
+const { OC, FC, QC } = require("../common/getChecker")
 const messages = require("../common/messages")
 const mailer = require("../common/mailer")
 const JWt = require("jsonwebtoken")
@@ -9,7 +9,7 @@ const Get = (sort, limit, skip, filter, expend, q ) => {
 
     return new Promise((resolve, reject) => { // get user
 
-        UsersModel.find(FC(filter), {}, OC(skip, limit, sort)).populate(expend)
+        UsersModel.find({ ...QC("user", q), ...FC(filter) }, {}, OC(skip, limit, sort)).populate(expend)
             .then(users => {
 
             resolve({ sort, skip, limit, value: users, count: users.length })
