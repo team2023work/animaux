@@ -1,5 +1,5 @@
 const slidersModel = require("../models/sliders")
-const { OC, FC } = require("../common/getChecker")
+const { OC, FC, QC } = require("../common/getChecker")
  
 // get slider
 const Get = (sort, limit, skip, filter, expend, q ) => {
