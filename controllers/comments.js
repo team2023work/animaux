@@ -4,9 +4,9 @@ const codes = require("../common/codes");
 
 // get comment
 const Get = (req, res) => {
-    const { sort, limit, skip, filter, expend, q } = req.query
+    const { $sort, $limit, $skip, $filter, $expend} = req.query
 
-    CommentsService.Get(sort, limit, skip, filter, expend, q).then(result => {
+    CommentsService.Get($sort, $limit, $skip, $filter, $expend).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
@@ -15,9 +15,9 @@ const Get = (req, res) => {
  
 // add comment
 const Add = (req, res) => {
-    const { content , userId , postId } = req.body
+    const { comment , user , post } = req.body
 
-    CommentsService.Add(content , userId , postId).then(result => {
+    CommentsService.Add(comment , user , post).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
@@ -26,9 +26,10 @@ const Add = (req, res) => {
 
 // edit comment
 const Edit = (req, res) => {
-    const { id , content } = req.body
+    const { id } = req.params
+    const { comment } = req.body
 
-    CommentsService.Edit(id, content).then(result => {
+    CommentsService.Edit(id, comment).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
@@ -37,7 +38,7 @@ const Edit = (req, res) => {
 
 // remove comment
 const Remove = (req, res) => {
-    const { id } = req.body
+    const { id } = req.params
 
     CommentsService.Remove(id).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })

@@ -4,9 +4,9 @@ const codes = require("../common/codes");
 
 // get like
 const Get = (req, res) => {
-    const { sort, limit, skip, filter, expend, q } = req.query
+    const { $sort, $limit, $skip, $filter, $expend} = req.query
 
-    LikesService.Get(sort, limit, skip, filter, expend, q).then(result => {
+    LikesService.Get($sort, $limit, $skip, $filter, $expend).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
@@ -15,9 +15,9 @@ const Get = (req, res) => {
  
 // add like
 const Add = (req, res) => {
-    const { userId , postId } = req.body
+    const { user , post } = req.body
  
-    LikesService.Add(userId , postId).then(result => {
+    LikesService.Add(user , post).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
@@ -27,7 +27,7 @@ const Add = (req, res) => {
 
 // remove like
 const Remove = (req, res) => {
-    const { id } = req.body
+    const { id } = req.params
 
     LikesService.Remove(id).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })

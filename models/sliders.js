@@ -18,7 +18,7 @@ const CategorySchema = mongoose.Schema({
         required: true,
         trim: true,
     },
-    postId: {
+    post: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref : "post"

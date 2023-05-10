@@ -1,8 +1,8 @@
 const { check } = require('express-validator')
 
 const Add = [
-    check("userId").notEmpty().withMessage("userId field is required"),
-    check("postId").notEmpty().withMessage("postId field is required"),
+    check("user").notEmpty().withMessage("user field is required"),
+    check("post").notEmpty().withMessage("post field is required"),
 ]
 
 

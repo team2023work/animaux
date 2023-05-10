@@ -5,14 +5,14 @@ const mailer = require("../common/mailer")
 const JWt = require("jsonwebtoken")
 
 // get admin
-const Get = (sort, limit, skip, filter, expend, q ) => {
+const Get = ($sort, $limit, $skip, $filter, $q ) => {
 
     return new Promise((resolve, reject) => { // get admin
 
-        AdminsModel.find({ ...QC("admin", q), ...FC(filter) } , {}, OC(skip, limit, sort)).populate(expend)
-            .then(users => {
+        AdminsModel.find({ ...QC("admin", $q), ...FC($filter) } , {}, OC($skip, $limit, $sort))
+            .then(admins => {
 
-                resolve({ sort, skip, limit, value: users, count: users.length })
+                resolve({ sort: $sort, skip: $skip, limit: $limit, value: admins, count: admins.length })
 
             }).catch(err => { reject(err) })
 

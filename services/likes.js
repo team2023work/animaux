@@ -3,21 +3,20 @@ const { OC, FC } = require("../common/getChecker")
 
 
 // get like
-const Get = (sort, limit, skip, filter, expend, q ) => {
+const Get = ($sort, $limit, $skip, $filter, $expend ) => {
 
     return new Promise((resolve, reject) => { // get like
  
       
-        expend =
-        expend === "all" ? [{ path: 'userId', model: 'user'}, { path: 'postId', model: 'post' }] :
-        expend === "user" ? { path: 'userId', model: 'user'} :
-        expend === "post" ? { path: 'postId', model: 'post' } : null
+        $expend =
+        $expend === "all" ? [{ path: 'user', model: 'user'}, { path: 'post', model: 'post' }] :
+        $expend
         
         
-        LikesModel.find(FC(filter), {}, OC(skip, limit, sort)).populate(expend)
+        LikesModel.find(FC($filter), {}, OC($skip, $limit, $sort)).populate($expend)
          .then(likes => {
  
-             resolve({ sort, skip, limit, value: likes, count: likes.length })
+             resolve({ sort: $sort, skip: $skip, limit: $limit, value: likes, count: likes.length })
 
          }).catch(err => {
              console.log(err)
@@ -30,11 +29,11 @@ const Get = (sort, limit, skip, filter, expend, q ) => {
 
 
 // add like
-const Add = (userId, postId) => {
+const Add = (user, post) => {
 
     return new Promise((resolve, reject) => { // check like
 
-        const newLike = new LikesModel({ userId, postId })
+        const newLike = new LikesModel({ user, post })
 
         newLike.save()
             .then(doc => { resolve(doc["_id"]) })
@@ -54,7 +53,7 @@ const Remove = (id) => {
 
                 //check res here
                 if (!like) {
-                    reject("id not exist")
+                    reject("did not match any document")
                 } else {
                     resolve("removed")
                 }

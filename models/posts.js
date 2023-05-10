@@ -6,7 +6,7 @@ const PostSchema = mongoose.Schema({
         required: true,
         trim: true,
     }, 
-    desc: {
+    description: {
         type: String,
         required: true,
         trim: true,
@@ -43,13 +43,13 @@ const PostSchema = mongoose.Schema({
         ref: "media"
     },
 
-    categoriesId: {
+    category: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref : "category"
     },
 
-    userId: {
+    user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref : "user"
@@ -73,7 +73,7 @@ const PostSchema = mongoose.Schema({
         trim: true
     },
 
-    date: {
+    lostDate: {
         type: Date,
         required: true,
         trim: true

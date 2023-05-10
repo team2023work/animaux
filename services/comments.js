@@ -3,22 +3,21 @@ const { OC, FC } = require("../common/getChecker")
  
  
 // get comment
-const Get = (sort, limit, skip, filter, expend, q ) => {
+const Get = ($sort, $limit, $skip, $filter, $expend) => {
 
     return new Promise((resolve, reject) => { // get comment
 
-        expend =
-        expend === "all" ? [{ path: 'userId', model: 'user'}, { path: 'postId', model: 'post' }] :
-        expend === "user" ? { path: 'userId', model: 'user'} :
-        expend === "post" ? { path: 'postId', model: 'post' } : null
+        $expend =
+        $expend === "all" ? [{ path: 'user', model: 'user'}, { path: 'post', model: 'post' }] :
+        $expend
 
-        CommentsModel.find(FC(filter), {}, OC(skip, limit, sort)).populate("userId")
+
+        CommentsModel.find(FC($filter), {}, OC($skip, $limit, $sort)).populate($expend)
             .then(comments => {
 
-                resolve({ sort, skip, limit, value: comments, count: comments.length })
+                resolve({ sort: $sort, skip: $skip, limit: $limit, value: comments, count: comments.length })
 
             }).catch(err => {
-                console.log(err)
 
                 reject(err)
             })
@@ -28,11 +27,11 @@ const Get = (sort, limit, skip, filter, expend, q ) => {
 
 
 // add comment
-const Add = (content, userId, postId) => {
+const Add = (comment, user, post) => {
 
     return new Promise((resolve, reject) => { // check comment
 
-        const newComment = new CommentsModel({ content, userId, postId })
+        const newComment = new CommentsModel({ comment, user, post })
 
         newComment.save()
             .then(doc => { resolve(doc["_id"]) })
@@ -43,16 +42,16 @@ const Add = (content, userId, postId) => {
 
 
 // edit comment
-const Edit = (id, content) => {
+const Edit = (id, comment) => {
 
     return new Promise((resolve, reject) => { // update comment
 
         // check id
-        CommentsModel.findByIdAndUpdate({}, { content , updatedAt: Date.now() }).where("_id").equals(id)
+        CommentsModel.findByIdAndUpdate({}, { comment , updatedAt: Date.now() }).where("_id").equals(id)
             .then(comment => {
 
                 if (!comment) {
-                    reject("id not exist")
+                    reject("did not match any document")
                 } else {
                     resolve("modified")
                 }
@@ -64,7 +63,7 @@ const Edit = (id, content) => {
 
 // remove comment  
 const Remove = (id) => {
-
+ 
     return new Promise((resolve, reject) => { // update comment
 
         // check id
@@ -73,7 +72,7 @@ const Remove = (id) => {
 
                 //check res here
                 if (!comment) {
-                    reject("id not exist")
+                    reject("did not match any document")
                 } else {
                     resolve("removed")
                 }

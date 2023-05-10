@@ -5,14 +5,16 @@ const mailer = require("../common/mailer")
 const JWt = require("jsonwebtoken")
 
 // get user
-const Get = (sort, limit, skip, filter, expend, q ) => {
+const Get = ($sort, $limit, $skip, $filter, $expend, $q ) => {
 
     return new Promise((resolve, reject) => { // get user
 
-        UsersModel.find({ ...QC("user", q), ...FC(filter) }, {}, OC(skip, limit, sort)).populate(expend)
+        console.log($expend)
+        
+        UsersModel.find({ ...QC("user", $q), ...FC($filter) }, {}, OC($skip, $limit, $sort)).populate($expend)
             .then(users => {
 
-            resolve({ sort, skip, limit, value: users, count: users.length })
+            resolve({ sort: $sort, skip: $skip, limit: $limit, value: users, count: users.length })
 
             }).catch(err => { reject(err) })
 
@@ -34,17 +36,19 @@ const Signup = (fullname, password, email, phone, address, localisation) => {
                 const newUser = new UsersModel({ fullname, email, phone, address, localisation, password: new UsersModel().hashPassword(password) })
 
 
-                resolve(doc._id)
 
-                // newUser.save()
-                //     .then(doc => {
-                //         const html = messages.confimEmailMsg(doc._id)
+                newUser.save()
+                    .then(doc => {
+                        // const html = messages.confimEmailMsg(doc._id)
                     
-                //         mailer.sendMAIL(email, "Confirm your email Please", html)
-                //         .then((succ) => resolve("sent"))
-                //         .catch(error => reject(error)) 
+                        // mailer.sendMAIL(email, "Confirm your email Please", html)
+                        // .then((succ) => resolve("sent"))
+                        // .catch(error => reject(error)) 
+
+                        resolve(doc._id)
+
         
-                //       }).catch(err => { reject(err) })
+                      }).catch(err => { reject(err) })
 
             }
         }).catch(err => { reject(err) })

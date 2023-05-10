@@ -4,9 +4,9 @@ const codes = require("../common/codes");
 
 // get slider
 const Get = (req, res) => {
-    const { sort, limit, skip, filter, expend, q  } = req.query
+    const { $sort, $limit, $skip, $filter, $expend, $q  } = req.query
 
-    slidersService.Get(sort, limit, skip, filter, expend, q ).then(result => {
+    slidersService.Get($sort, $limit, $skip, $filter, $expend, $q ).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
@@ -15,9 +15,9 @@ const Get = (req, res) => {
  
 // add slider
 const Add = (req, res) => {
-    const { title, description ,visible, postId, image } = req.body
+    const { title, description ,visible, post, image } = req.body
 
-    slidersService.Add(title, description ,visible, postId, image).then(result => {
+    slidersService.Add(title, description ,visible, post, image).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
@@ -26,10 +26,10 @@ const Add = (req, res) => {
 
 // edit slider
 const Edit = (req, res) => {
-    const { title, description ,visible, postId, image } = req.body
+    const { title, description ,visible, post, image } = req.body
     const { id } = req.params
 
-    slidersService.Edit(id, title, description ,visible, postId, image).then(result => {
+    slidersService.Edit(id, title, description ,visible, post, image).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })

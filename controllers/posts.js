@@ -4,9 +4,9 @@ const codes = require("../common/codes");
   
 // get post
 const Get = (req, res) => {
-    const { sort, limit, skip, filter, expend, q  } = req.query
+    const { $sort, $limit, $skip, $filter, $expend, $q  } = req.query
 
-    PostsService.Get(sort, limit, skip, filter, expend, q ).then(result => {
+    PostsService.Get($sort, $limit, $skip, $filter, $expend, $q ).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
@@ -17,9 +17,9 @@ const Get = (req, res) => {
 
 // add post
 const Add = (req, res) => {
-    const { title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation, price, date } = req.body
+    const { title, description, phone, address, gender, image, category, user, status, visible, localisation, price, lostDate } = req.body
 
-    PostsService.Add(title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation, price, date ).then(result => {
+    PostsService.Add(title, description, phone, address, gender, image, category, user, status, visible, localisation, price, lostDate ).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
@@ -28,10 +28,10 @@ const Add = (req, res) => {
 
 // edit post
 const Edit = (req, res) => {
-    const { title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation, price, date } = req.body
+    const { title, description, phone, address, gender, image, category, user, status, visible, localisation, price, lostDate } = req.body
     const { id } = req.params
     
-    PostsService.Edit(id , title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation, price, date ).then(result => {
+    PostsService.Edit(id , title, description, phone, address, gender, image, category, user, status, visible, localisation, price, lostDate ).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })

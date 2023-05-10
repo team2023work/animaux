@@ -4,9 +4,9 @@ const codes = require("../common/codes");
 
 // get category
 const Get = (req, res) => {
-    const { sort, limit, skip, filter, q  } = req.query
+    const { $sort, $limit, $skip, $filter, $q  } = req.query
 
-    categoriesService.Get(sort, limit, skip, filter, q ).then(result => {
+    categoriesService.Get($sort, $limit, $skip, $filter, $q ).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })

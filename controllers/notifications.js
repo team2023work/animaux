@@ -4,9 +4,9 @@ const codes = require("../common/codes");
 
 // get notification
 const Get = (req, res) => {
-    const { sort, limit, skip, filter, expend, q  } = req.query
+    const { $sort, $limit, $skip, $filter, $expend, $q  } = req.query
 
-    notificationsService.Get(sort, limit, skip, filter, expend, q ).then(result => {
+    notificationsService.Get($sort, $limit, $skip, $filter, $expend, $q ).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
@@ -15,9 +15,9 @@ const Get = (req, res) => {
  
 // add notification
 const Add = (req, res) => {
-    const { title, description, postId } = req.body
+    const { title, message, post } = req.body
 
-    notificationsService.Add(title, description, postId).then(result => {
+    notificationsService.Add(title, message, post).then(result => {
         res.status(codes.ok).json({ err: false, msg: result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })

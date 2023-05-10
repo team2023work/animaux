@@ -2,15 +2,15 @@ const slidersModel = require("../models/sliders")
 const { OC, FC, QC } = require("../common/getChecker")
  
 // get slider
-const Get = (sort, limit, skip, filter, expend, q ) => {
+const Get = ($sort, $limit, $skip, $filter, $expend, $q ) => {
 
     return new Promise((resolve, reject) => { // get slider
 
 
-        slidersModel.find({ ...QC("slider", q), ...FC(filter) }, {},OC(skip, limit, sort)).populate(expend)
+        slidersModel.find({ ...QC("slider", $q), ...FC($filter) }, {},OC($skip, $limit, $sort)).populate($expend)
             .then(sliders => {
 
-             resolve({ sort, skip, limit, value: sliders, count: sliders.length })
+             resolve({ sort: $sort, skip: $skip, limit: $limit, value: sliders, count: sliders.length })
 
             }).catch(err => {   reject(err) })
             
@@ -19,7 +19,7 @@ const Get = (sort, limit, skip, filter, expend, q ) => {
  
 
 // add slider
-const Add = (title, description ,visible, postId, image) => {
+const Add = (title, description ,visible, post, image) => {
 
     return new Promise((resolve, reject) => { // check slider
 
@@ -29,7 +29,7 @@ const Add = (title, description ,visible, postId, image) => {
                 reject("the slider already exists")
             } else {
 
-                const newslider = new slidersModel({ title, description ,visible, postId, image })
+                const newslider = new slidersModel({ title, description ,visible, post, image })
 
                 newslider.save()
                     .then(doc => { resolve(doc["_id"]) })
@@ -44,12 +44,12 @@ const Add = (title, description ,visible, postId, image) => {
 
 
 // edit slider
-const Edit = (id , title, description ,visible, postId, image) => {
+const Edit = (id , title, description ,visible, post, image) => {
 
     return new Promise((resolve, reject) => { // update slider
 
         // check id
-        slidersModel.findByIdAndUpdate({}, { title, description ,visible, postId, image, updatedAt: Date.now() }).where("_id").equals(id)
+        slidersModel.findByIdAndUpdate({}, { title, description ,visible, post, image, updatedAt: Date.now() }).where("_id").equals(id)
             .then(slider => {
 
                 if (!slider) {

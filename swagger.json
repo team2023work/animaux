@@ -223,7 +223,7 @@
                         "type": "string",
                         "default": null,
                         "enum": [
-                            "userId",
+                            "user",
                             "categoriesId",
                             "all"
                         ]
@@ -613,7 +613,7 @@
                 },
                 "gender": {
                     "type": "string"
-                },
+                }, 
                 "signalCount": {
                     "type": "integer"
                 },
@@ -626,8 +626,8 @@
                 "image": {
                     "type": "imageId"
                 },
-                "userId": {
-                    "type": "userId"
+                "user": {
+                    "type": "user"
                 },
                 "categoriesId": {
                     "type": "categoriesId"
@@ -668,8 +668,8 @@
                 "image": {
                     "type": "imageId"
                 },
-                "postId": {
-                    "type": "postId"
+                "post": {
+                    "type": "post"
                 },
                 "createdAt": {
                     "type": "string",
@@ -690,8 +690,8 @@
                 "message": {
                     "type": "string"
                 },
-                "postId": {
-                    "type": "postId"
+                "post": {
+                    "type": "post"
                 },
                 "createdAt": {
                     "type": "string",

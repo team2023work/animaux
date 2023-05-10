@@ -23,9 +23,8 @@ const Reset = [
 ]
 
 const Edit = [
-    check("fullname").notEmpty().withMessage("fullname field is required"),
-    check("email").notEmpty().withMessage("email field is required"),
-    check("password").notEmpty().withMessage("password field is required"),
+    //check("fullname").notEmpty().withMessage("fullname field is required"),
+    //check("email").notEmpty().withMessage("email field is required"),
     check("isAccountSuspended").notEmpty().withMessage("isAccountSuspended field is required"),
     check("id").isLength({min: 10}).withMessage("id field is required"),
 ]

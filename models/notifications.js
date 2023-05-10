@@ -3,21 +3,21 @@ const mongoose = require("mongoose")
 const CategorySchema = mongoose.Schema({
     title: {
         type: String,
-        required: true, 
+        required: true,
         trim: true,
         unique: true,
-    }, 
+    },
 
     message: {
         type: String,
-        required: true, 
+        required: true,
         trim: true,
-    }, 
+    },
 
-     postId: {
+    post: {
         type: mongoose.Schema.Types.ObjectId,
         required: false,
-        ref : "post"
+        ref: "post"
     },
 
     createdAt: {

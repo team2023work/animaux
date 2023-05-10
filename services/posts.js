@@ -3,25 +3,22 @@ const { OC, FC, QC } = require("../common/getChecker")
  
 
 // get post
-const Get = (sort, limit, skip, filter, expend, q ) => {
+const Get = ($sort, $limit, $skip, $filter, $expend, $q ) => {
 
     return new Promise((resolve, reject) => { // get post
  
 
-        expend =
-        expend === "categoriesId" ? { path: 'categoriesId', model: "category" } :
-        expend === "userId" ? { path: 'userId', model: "user" } :
-     
-        expend === "all" ? [
-            { path: 'categoriesId', model: "category"},
-            { path: 'userId', model: "user" },
-        ] : null
+        $expend =
+        $expend === "all" ? [
+            { path: 'category', model: "category"},
+            { path: 'user', model: "user" },
+        ] : $expend
 
         
-        PostsModel.find({ ...QC("post", q), ...FC(filter) }, {} , OC(skip, limit, sort) ).populate(expend)
+        PostsModel.find({ ...QC("post", $q), ...FC($filter) }, {} , OC($skip, $limit, $sort) ).populate($expend)
         .then(posts => {
             
-            resolve({ sort, skip, limit, value: posts, count: posts.length })
+            resolve({ sort: $sort, skip: $skip, limit: $limit, value: posts, count: posts.length })
 
         }).catch(err => { reject(err) })
 
@@ -30,12 +27,12 @@ const Get = (sort, limit, skip, filter, expend, q ) => {
 
 
 // add post
-const Add = (title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation, price, date ) => {
+const Add = (title, description, phone, address, gender, image, category, user, status, visible, localisation, price, lostDate ) => {
     
     return new Promise((resolve, reject) => { // check post
 
 
-        const newPost = new PostsModel({ title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation, price, date  })
+        const newPost = new PostsModel({ title, description, phone, address, gender, image, category, user, status, visible, localisation, price, lostDate  })
 
         newPost.save()
             .then(doc => { resolve(doc["_id"]) })
@@ -44,13 +41,13 @@ const Add = (title, desc, phone, address, gender, image, categoriesId, userId, s
 }
 
 // edit post
-const Edit = (id, title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation, price, date ) => {
+const Edit = (id, title, description, phone, address, gender, image, category, user, status, visible, localisation, price, lostDate ) => {
 
     return new Promise((resolve, reject) => { // update post
 
         // check id
         PostsModel.findByIdAndUpdate({},
-            { title, desc, phone, address, gender, image, categoriesId, userId, status, visible, localisation, price, date , updatedAt: Date.now() }
+            { title, description, phone, address, gender, image, category, user, status, visible, localisation, price, lostDate , updatedAt: Date.now() }
         ).where("_id").equals(id)
             .then(post => {
 

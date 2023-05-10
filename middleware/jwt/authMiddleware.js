@@ -3,8 +3,7 @@ const codes = require("../../common/codes");
 
 const authMiddleware = (req, res, next) => {
   const auth = req.headers.authorization
-  
-
+    
   if (auth && auth.startsWith('Bearer')) {
        const token = auth.slice(7)
 
