@@ -7,7 +7,7 @@ const Get = (req, res) => {
     const { $sort, $limit, $skip, $filter, $q } = req.query
 
     AdminsService.Get($sort, $limit, $skip, $filter, $q ).then(result => {
-        res.status(codes.ok).json({ err: false, msg: result })
+        res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })
@@ -33,7 +33,7 @@ const Login = (req, res) => {
     const { email, password } = req.body
 
     AdminsService.Login(email, password).then(result => {
-        res.status(codes.ok).json({ err: false, msg: result })
+        res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })
@@ -44,7 +44,7 @@ const Create = (req, res) => {
     const { fullname, password, email } = req.body
 
     AdminsService.Create(fullname, password, email ).then(result => {
-        res.status(codes.ok).json({ err: false, msg: result })
+        res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })
@@ -57,7 +57,7 @@ const Edit = (req, res) => {
     const { id } = req.params
     
     AdminsService.Edit(id, fullname, email, isAccountSuspended).then(result => {
-        res.status(codes.ok).json({ err: false, msg: result })
+        res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })
@@ -69,7 +69,7 @@ const Reset = (req, res) => {
     const { id } = req.params
 
     AdminsService.Reset(id, oldPass, newPass).then(result => {
-        res.status(codes.ok).json({ err: false, msg: result })
+        res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })
@@ -81,7 +81,7 @@ const Forgot = (req, res) => {
     const { email } = req.body
 
     AdminsService.Forgot(email).then(result => {
-        res.status(codes.ok).json({ err: false, msg: result })
+        res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })

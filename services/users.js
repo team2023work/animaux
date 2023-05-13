@@ -8,8 +8,6 @@ const JWt = require("jsonwebtoken")
 const Get = ($sort, $limit, $skip, $filter, $expend, $q ) => {
 
     return new Promise((resolve, reject) => { // get user
-
-        console.log($expend)
         
         UsersModel.find({ ...QC("user", $q), ...FC($filter) }, {}, OC($skip, $limit, $sort)).populate($expend)
             .then(users => {

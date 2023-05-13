@@ -7,7 +7,7 @@ const Get = (req, res) => {
     const { $sort, $limit, $skip, $filter, $expend, $q  } = req.query
 
     PostsService.Get($sort, $limit, $skip, $filter, $expend, $q ).then(result => {
-        res.status(codes.ok).json({ err: false, msg: result })
+        res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })
@@ -20,7 +20,7 @@ const Add = (req, res) => {
     const { title, description, phone, address, gender, image, category, user, status, visible, localisation, price, lostDate } = req.body
 
     PostsService.Add(title, description, phone, address, gender, image, category, user, status, visible, localisation, price, lostDate ).then(result => {
-        res.status(codes.ok).json({ err: false, msg: result })
+        res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })
@@ -32,7 +32,7 @@ const Edit = (req, res) => {
     const { id } = req.params
     
     PostsService.Edit(id , title, description, phone, address, gender, image, category, user, status, visible, localisation, price, lostDate ).then(result => {
-        res.status(codes.ok).json({ err: false, msg: result })
+        res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })
@@ -45,7 +45,7 @@ const Signal = (req, res) => {
     const { id  } = req.params
 
     PostsService.Signal(id).then(result => {
-        res.status(codes.ok).json({ err: false, msg: result })
+        res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })

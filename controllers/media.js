@@ -8,7 +8,7 @@ const createMedia = (req, res) => {
     const { type } = req.body
 
     mediaService.createMedia(filename , type)
-    .then(result => { res.status(codes.ok).json({ err: false, msg: result }) })
+    .then(result => { res.status(codes.ok).json({ result }) })
     .catch(err => res.status(codes.badRequest).json({ err: true, msg: err?.message || err }))
 }
 

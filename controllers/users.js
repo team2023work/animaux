@@ -7,7 +7,7 @@ const Get = (req, res) => {
     const { $sort, $limit, $skip, $filter, $expend, $q  } = req.query
 
     UsersService.Get($sort, $limit, $skip, $filter, $expend, $q ).then(result => {
-        res.status(codes.ok).json({ err: false, msg: result })
+        res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })
@@ -33,7 +33,7 @@ const Login = (req, res) => {
     const { email, password } = req.body
 
     UsersService.Login(email, password).then(result => {
-        res.status(codes.ok).json({ err: false, msg: result })
+        res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })
@@ -44,7 +44,7 @@ const Signup = (req, res) => {
     const { fullname, password, email, phone, address, localisation } = req.body
 
     UsersService.Signup(fullname, password, email, phone, address, localisation ).then(result => {
-        res.status(codes.ok).json({ err: false, msg: result })
+        res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })
@@ -57,7 +57,7 @@ const Edit = (req, res) => {
     const { id } = req.params
     
     UsersService.Edit(id, fullname, email, phone, avatar, address, isAccountSuspended, localisation).then(result => {
-        res.status(codes.ok).json({ err: false, msg: result })
+        res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })
@@ -69,7 +69,7 @@ const Reset = (req, res) => {
     const { id } = req.params
 
     UsersService.Reset(id, oldPass, newPass).then(result => {
-        res.status(codes.ok).json({ err: false, msg: result })
+        res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })
@@ -81,7 +81,7 @@ const Forgot = (req, res) => {
     const { email } = req.body
 
     UsersService.Forgot(email).then(result => {
-        res.status(codes.ok).json({ err: false, msg: result })
+        res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })
@@ -92,7 +92,7 @@ const Confirm = (req, res) => {
     const { id } = req.params
 
     UsersService.Confirm(id).then(result => {
-        res.status(codes.ok).json({ err: false, msg: result })
+        res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })

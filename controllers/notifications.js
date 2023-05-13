@@ -7,7 +7,7 @@ const Get = (req, res) => {
     const { $sort, $limit, $skip, $filter, $expend, $q  } = req.query
 
     notificationsService.Get($sort, $limit, $skip, $filter, $expend, $q ).then(result => {
-        res.status(codes.ok).json({ err: false, msg: result })
+        res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })
@@ -18,7 +18,7 @@ const Add = (req, res) => {
     const { title, message, post } = req.body
 
     notificationsService.Add(title, message, post).then(result => {
-        res.status(codes.ok).json({ err: false, msg: result })
+        res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
     })
