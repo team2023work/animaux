@@ -7,10 +7,10 @@ const Get = ($sort, $limit, $skip, $filter, $q ) => {
     return new Promise((resolve, reject) => { // get category
 
 
-        categoriesModel.find({ ...QC("categoty", $q), ...FC($filter) }, {},OC($skip, $limit, $sort))
+        categoriesModel.find({ ...QC("categoty", $q), ...FC($filter) }, {},OC($skip, null, $sort))
             .then(categories => {
 
-             resolve({ sort: $sort, skip: $skip, limit: $limit, value: categories, count: categories.length })
+             resolve({ sort: $sort, skip: $skip, limit: $limit, value: categories.slice(0, $limit), count: categories.length })
 
             }).catch(err => {   reject(err) })
             

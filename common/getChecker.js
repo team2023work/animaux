@@ -9,8 +9,7 @@ const QC = (s, q) => {
     const postFilter = [ "title", "desc", "phone", "address", "gender"]
     const categoryFilter = [ "name", "description" ]
     const sliderFilter = [ "title", "description" ]
-    const notificationFilter = [ "title", "message" ]    
-    
+    const notificationFilter = [ "title", "message" ]      
 
     let $or = []
 

@@ -9,10 +9,10 @@ const Get = ($sort, $limit, $skip, $filter, $q ) => {
 
     return new Promise((resolve, reject) => { // get admin
 
-        AdminsModel.find({ ...QC("admin", $q), ...FC($filter) } , {}, OC($skip, $limit, $sort))
+        AdminsModel.find({ ...QC("admin", $q), ...FC($filter) } , {}, OC($skip, null, $sort))
             .then(admins => {
 
-                resolve({ sort: $sort, skip: $skip, limit: $limit, value: admins, count: admins.length })
+                resolve({ sort: $sort, skip: $skip, limit: $limit, value: admins.slice(0, $limit), count: admins.length })
 
             }).catch(err => { reject(err) })
 

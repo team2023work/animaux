@@ -13,10 +13,10 @@ const Get = ($sort, $limit, $skip, $filter, $expend ) => {
         $expend
         
         
-        LikesModel.find(FC($filter), {}, OC($skip, $limit, $sort)).populate($expend)
+        LikesModel.find(FC($filter), {}, OC($skip, null, $sort)).populate($expend)
          .then(likes => {
  
-             resolve({ sort: $sort, skip: $skip, limit: $limit, value: likes, count: likes.length })
+             resolve({ sort: $sort, skip: $skip, limit: $limit, value: likes.slice(0, $limit), count: likes.length })
 
          }).catch(err => {
              console.log(err)

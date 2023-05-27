@@ -7,10 +7,10 @@ const Get = ($sort, $limit, $skip, $filter, $expend, $q ) => {
     return new Promise((resolve, reject) => { // get slider
 
 
-        slidersModel.find({ ...QC("slider", $q), ...FC($filter) }, {},OC($skip, $limit, $sort)).populate($expend)
+        slidersModel.find({ ...QC("slider", $q), ...FC($filter) }, {},OC($skip, null, $sort)).populate($expend)
             .then(sliders => {
 
-             resolve({ sort: $sort, skip: $skip, limit: $limit, value: sliders, count: sliders.length })
+             resolve({ sort: $sort, skip: $skip, limit: $limit, value: sliders.slice(0, $limit), count: sliders.length })
 
             }).catch(err => {   reject(err) })
             

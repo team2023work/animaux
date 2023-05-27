@@ -7,10 +7,10 @@ const Get = ($sort, $limit, $skip, $filter, $expend, $q ) => {
     return new Promise((resolve, reject) => { // get notification
 
 
-        notificationsModel.find({ ...QC("notification", $q), ...FC($filter) }, {},OC($skip, $limit, $sort)).populate($expend)
+        notificationsModel.find({ ...QC("notification", $q), ...FC($filter) }, {},OC($skip, null, $sort)).populate($expend)
             .then(notifications => {
 
-                resolve({ sort: $sort, skip: $skip, limit: $limit, value: notifications, count: notifications.length })
+                resolve({ sort: $sort, skip: $skip, limit: $limit, value: notifications.slice(0, $limit), count: notifications.length })
 
             }).catch(err => {   reject(err) })
             

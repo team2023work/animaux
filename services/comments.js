@@ -12,10 +12,10 @@ const Get = ($sort, $limit, $skip, $filter, $expend) => {
         $expend
 
 
-        CommentsModel.find(FC($filter), {}, OC($skip, $limit, $sort)).populate($expend)
+        CommentsModel.find(FC($filter), {}, OC($skip, null, $sort)).populate($expend)
             .then(comments => {
 
-                resolve({ sort: $sort, skip: $skip, limit: $limit, value: comments, count: comments.length })
+                resolve({ sort: $sort, skip: $skip, limit: $limit, value: comments.slice(0, $limit), count: comments.length })
 
             }).catch(err => {
 
