@@ -70,13 +70,13 @@ const Login = (email, password) => {
 
 
 // edit User
-const Edit = (id, fullname, email, isAccountSuspended) => {
+const Edit = (id, fullname, email, isAccountActivated) => {
 
     return new Promise((resolve, reject) => { // update user
 
         // check id
         AdminsModel.findByIdAndUpdate({}, {
-            fullname, email, isAccountSuspended, updatedAt: Date.now()
+            fullname, email, isAccountActivated, updatedAt: Date.now()
         }).where("_id").equals(id) .then(user => {
 
                 if (!user) {

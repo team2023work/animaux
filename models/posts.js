@@ -79,21 +79,23 @@ const PostSchema = mongoose.Schema({
         trim: true
     },
 
-    localisation: {
-        type: {
-            longitude: {
-                type: String,
-                required: true,
-                trim: true,
-            },
-            latitude: {
-                type: String,
-                required: true,
-                trim: true,
-            }
-        },
-        required: true,
-        trim: true,
+     localisation: {
+        type: { type: String },
+        coordinates: [],
+    //     type: {
+    //         longitude: {
+    //             type: String,
+    //             required: true,
+    //             trim: true,
+    //         },
+    //         latitude: {
+    //             type: String,
+    //             required: true,
+    //             trim: true,
+    //         }
+    //     },
+        // required: true,
+        // trim: true,
     },
 
     createdAt: {
@@ -105,5 +107,9 @@ const PostSchema = mongoose.Schema({
         default: Date.now()
     },
 })
+
+
+// create Index
+PostSchema.index({ "localisation" : "2dsphere" })
 
 module.exports = mongoose.model("post", PostSchema)

@@ -2,6 +2,28 @@ const FC = filter => {
     return filter ? JSON.parse(filter) : {}
 }
 
+
+const LC = (longitude, latitude) => {
+    let localisation = {}
+
+    localisation =
+        (!!longitude && !!latitude) ? {
+            localisation: {
+                $near:
+                {
+                    $geometry: { type: "Point", coordinates: [longitude, latitude] },
+                    $minDistance: 0,
+                    $maxDistance: 100000
+                },
+
+            }
+
+        } : localisation
+
+    return !!localisation.$near ? {localisation: localisation.localisation} : {}
+}
+
+
 const QC = (s, q) => {
 
     const adminFilter = [ "fullname", "email" ]
@@ -39,4 +61,4 @@ const OC = (skip, limit, sort) => {
 
 
 
-module.exports = { FC , OC , QC }
+module.exports = { FC , OC , QC, LC }

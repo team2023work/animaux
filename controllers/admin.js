@@ -53,10 +53,10 @@ const Create = (req, res) => {
 
 // edit User
 const Edit = (req, res) => {
-    const { fullname, email, isAccountSuspended } = req.body
+    const { fullname, email, isAccountActivated } = req.body
     const { id } = req.params
     
-    AdminsService.Edit(id, fullname, email, isAccountSuspended).then(result => {
+    AdminsService.Edit(id, fullname, email, isAccountActivated).then(result => {
         res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })

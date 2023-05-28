@@ -1,9 +1,9 @@
 const PostsModel = require("../models/posts")
-const { OC, FC, QC } = require("../common/getChecker")
+const { OC, FC, QC, LC } = require("../common/getChecker")
 
 
 // get post
-const Get = ($sort, $limit, $skip, $filter, $expend, $q) => {
+const Get = ($sort, $limit, $skip, $filter, $expend, $q, $longitude, $latitude) => {
 
     return new Promise((resolve, reject) => { // get post
 
@@ -13,13 +13,23 @@ const Get = ($sort, $limit, $skip, $filter, $expend, $q) => {
                 { path: 'user', model: "user" },
             ] : $expend
 
-        
-            PostsModel.find({ ...QC("post", $q), ...FC($filter) }, {}, OC($skip, null, $sort)).populate($expend)
-            .then(posts => {
+        return new Promise((resolve, reject) => { // get post
+
+            $expend =
+                $expend === "all" ? [
+                    { path: 'category', model: "category" },
+                    { path: 'user', model: "user" },
+                ] : $expend
+
+
+            PostsModel.find({ ...QC("post", $q), ...FC($filter), ...LC($longitude, $latitude) }, {}, OC($skip, null, $sort)).populate($expend)
+                .then(posts => {
 
                     resolve({ sort: $sort, skip: $skip, limit: $limit, value: posts.slice(0, $limit), count: posts.length })
 
-            }).catch(err => { reject(err) })
+                }).catch(err => { reject(err) })
+
+        })
 
     })
 }
@@ -31,7 +41,12 @@ const Add = (title, description, phone, address, gender, image, category, user, 
     return new Promise((resolve, reject) => { // check post
 
 
-        const newPost = new PostsModel({ title, description, phone, address, gender, image, category, user, status, visible, localisation, price, lostDate })
+        const newPost = new PostsModel({
+            title, description, phone, address, gender, image, category, user, status, visible, localisation: {
+                type: "Point",
+                coordinates: [localisation.longitude, localisation.latitude]
+            }, price, lostDate
+        })
 
         newPost.save()
             .then(doc => { resolve(doc["_id"]) })
@@ -46,7 +61,12 @@ const Edit = (id, title, description, phone, address, gender, image, category, u
 
         // check id
         PostsModel.findByIdAndUpdate({},
-            { title, description, phone, address, gender, image, category, user, status, visible, localisation, price, lostDate, updatedAt: Date.now() }
+            {
+                title, description, phone, address, gender, image, category, user, status, visible, localisation: {
+                    type: "Point",
+                    coordinates: [localisation.longitude, localisation.latitude]
+                }, price, lostDate, updatedAt: Date.now()
+            }
         ).where("_id").equals(id)
             .then(post => {
 

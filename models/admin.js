@@ -28,9 +28,9 @@ const AdminSchema = mongoose.Schema({
         default: Date.now()
     },
     
-    isAccountSuspended: {
+    isAccountActivated: {
         type: Boolean,
-        default: false
+        default: true
     }
 })
  

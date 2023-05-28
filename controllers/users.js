@@ -4,9 +4,9 @@ const codes = require("../common/codes");
 
 // get user
 const Get = (req, res) => {
-    const { $sort, $limit, $skip, $filter, $expend, $q  } = req.query
+    const { $sort, $limit, $skip, $filter, $expend, $q, $longitude, $latitude } = req.query
 
-    UsersService.Get($sort, $limit, $skip, $filter, $expend, $q ).then(result => {
+    UsersService.Get($sort, $limit, $skip, $filter, $expend, $q, $longitude, $latitude ).then(result => {
         res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
@@ -53,10 +53,10 @@ const Signup = (req, res) => {
 
 // edit User
 const Edit = (req, res) => {
-    const { fullname, email, phone, avatar, address, isAccountSuspended, localisation } = req.body
+    const { fullname, email, phone, avatar, address, isAccountActivated, localisation } = req.body
     const { id } = req.params
     
-    UsersService.Edit(id, fullname, email, phone, avatar, address, isAccountSuspended, localisation).then(result => {
+    UsersService.Edit(id, fullname, email, phone, avatar, address, isAccountActivated, localisation).then(result => {
         res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })

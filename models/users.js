@@ -39,20 +39,23 @@ const UserSchema = mongoose.Schema({
     },
 
     localisation: {
-        type: {
-            longitude: {
-                type: String,
-                required: true,
-                trim: true,
-            },
-            latitude: {
-                type: String,
-                required: true,
-                trim: true,
-            }
-        },
-        required: true,
-        trim: true,
+        type: { type: String },
+        coordinates: [],
+
+        // type: {
+        //     longitude: {
+        //         type: String,
+        //         required: true,
+        //         trim: true,
+        //     },
+        //     latitude: {
+        //         type: String,
+        //         required: true,
+        //         trim: true,
+        //     }
+        // },
+        // required: true,
+        // trim: true,
     },
     
     createdAt: {
@@ -67,12 +70,14 @@ const UserSchema = mongoose.Schema({
         type: Boolean,
         default: false
     } ,
-    isAccountSuspended: {
+    isAccountActivated: {
         type: Boolean,
-        default: false
+        default: true
     }
 })
  
+// create Index
+UserSchema.index({ "localisation" : "2dsphere" })
 
 // hash Password
 UserSchema.methods.hashPassword = (password) => {

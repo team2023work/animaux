@@ -4,9 +4,9 @@ const codes = require("../common/codes");
   
 // get post
 const Get = (req, res) => {
-    const { $sort, $limit, $skip, $filter, $expend, $q  } = req.query
+    const { $sort, $limit, $skip, $filter, $expend, $q, $longitude, $latitude  } = req.query
 
-    PostsService.Get($sort, $limit, $skip, $filter, $expend, $q ).then(result => {
+    PostsService.Get($sort, $limit, $skip, $filter, $expend, $q, $longitude, $latitude ).then(result => {
         res.status(codes.ok).json({ result })
     }).catch(err => {
         res.status(codes.badRequest).json({ err: true, msg: err?.message || err })

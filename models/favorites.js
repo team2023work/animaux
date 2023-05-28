@@ -1,12 +1,12 @@
 const mongoose = require("mongoose")
 
-const LikeSchema = mongoose.Schema({
+const FavoriteSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref : "user"
     },
-    post: {
+    post: { 
         type: mongoose.Schema.Types.ObjectId,
         required: true,
         ref : "post"
@@ -18,4 +18,4 @@ const LikeSchema = mongoose.Schema({
 })
 
 
-module.exports = mongoose.model("like", LikeSchema)
+module.exports = mongoose.model("favorite", FavoriteSchema)

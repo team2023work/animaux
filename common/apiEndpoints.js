@@ -69,8 +69,8 @@ const Host = {
           delete: `/delete/:id`,
       },
 
-      Likes: {
-          route: `${Host.PREFIX}/likes`,
+      Favorites: {
+          route: `${Host.PREFIX}/favorites`,
           list: `/list`,
           create: `/create`,
           delete: `/delete/:id`,

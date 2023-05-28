@@ -42,7 +42,7 @@ const posts = require("./routers/posts")
 const sliders = require("./routers/sliders")
 const notifications = require("./routers/notifications")
 const comments = require("./routers/comments")
-const likes = require("./routers/likes")
+const favorites = require("./routers/favorites")
 
 app.use(ApiEndpoints.Users.route, users)
 app.use(ApiEndpoints.Media.route, media)
@@ -52,7 +52,7 @@ app.use(ApiEndpoints.Posts.route, posts)
 app.use(ApiEndpoints.Sliders.route, sliders)
 app.use(ApiEndpoints.Notifications.route, notifications)
 app.use(ApiEndpoints.Comments.route, comments)
-app.use(ApiEndpoints.Likes.route, likes)
+app.use(ApiEndpoints.Favorites.route, favorites)
 
 // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, options))
 

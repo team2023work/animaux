@@ -1,15 +1,15 @@
 const UsersModel = require("../models/users")
-const { OC, FC, QC } = require("../common/getChecker")
+const { OC, FC, QC, LC } = require("../common/getChecker")
 const messages = require("../common/messages")
 const mailer = require("../common/mailer")
 const JWt = require("jsonwebtoken")
 
-// get user
-const Get = ($sort, $limit, $skip, $filter, $expend, $q ) => {
+
+const Get = ($sort, $limit, $skip, $filter, $expend, $q, $longitude, $latitude) => {
 
     return new Promise((resolve, reject) => { // get user
         
-        UsersModel.find({ ...QC("user", $q), ...FC($filter) }, {}, OC($skip, null, $sort)).populate($expend)
+        UsersModel.find({ ...QC("user", $q), ...FC($filter), ...LC($longitude, $latitude) }, {}, OC($skip, null, $sort)).populate($expend)
             .then(users => {
 
             resolve({ sort: $sort, skip: $skip, limit: $limit, value: users.slice(0, $limit), count: users.length })
@@ -31,7 +31,12 @@ const Signup = (fullname, password, email, phone, address, localisation) => {
                 reject("the email already exists")
             } else {
 
-                const newUser = new UsersModel({ fullname, email, phone, address, localisation, password: new UsersModel().hashPassword(password) })
+                const newUser = new UsersModel({
+                    fullname, email, phone, address, localisation: {
+                        type: "Point",
+                        coordinates: [localisation.longitude, localisation.latitude]
+                    }, password: new UsersModel().hashPassword(password)
+                })
 
 
 
@@ -68,8 +73,8 @@ const Login = (email, password) => {
                 reject("email or password is incorrect")
             } else {
 
-                if(user.isAccountSuspended){ 
-                    reject("your account is suspended")
+                if(!user.isAccountActivated){ 
+                    reject("your account is activated yet")
                 } 
                 
                 // else if(!user.isEmailVerified){
@@ -95,14 +100,17 @@ const Login = (email, password) => {
 
 
 // edit User
-const Edit = (id, fullname, email, phone, avatar, address, isAccountSuspended, localisation) => {
+const Edit = (id, fullname, email, phone, avatar, address, isAccountActivated, localisation) => {
 
     return new Promise((resolve, reject) => { // update user
 
         // check id
         UsersModel.findByIdAndUpdate({}, {
-            fullname, email, phone, avatar, address, isAccountSuspended, localisation, updatedAt: Date.now()
-        }).where("_id").equals(id) .then(user => {
+            fullname, email, phone, avatar, address, isAccountActivated, localisation: {
+                type: "Point",
+                coordinates: [localisation.longitude, localisation.latitude]
+            }, updatedAt: Date.now()
+        }).where("_id").equals(id).then(user => {
 
                 if (!user) {
                     reject("did not match any document")

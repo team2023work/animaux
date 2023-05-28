@@ -1,11 +1,11 @@
-const LikesModel = require("../models/likes")
+const FavoritesModel = require("../models/favorites")
 const { OC, FC } = require("../common/getChecker")
 
 
-// get like
+// get Favorite
 const Get = ($sort, $limit, $skip, $filter, $expend ) => {
 
-    return new Promise((resolve, reject) => { // get like
+    return new Promise((resolve, reject) => { // get Favorite
  
       
         $expend =
@@ -13,10 +13,10 @@ const Get = ($sort, $limit, $skip, $filter, $expend ) => {
         $expend
         
         
-        LikesModel.find(FC($filter), {}, OC($skip, null, $sort)).populate($expend)
-         .then(likes => {
+        FavoritesModel.find(FC($filter), {}, OC($skip, null, $sort)).populate($expend)
+         .then(Favorites => {
  
-             resolve({ sort: $sort, skip: $skip, limit: $limit, value: likes.slice(0, $limit), count: likes.length })
+             resolve({ sort: $sort, skip: $skip, limit: $limit, value: Favorites.slice(0, $limit), count: Favorites.length })
 
          }).catch(err => {
              console.log(err)
@@ -28,31 +28,31 @@ const Get = ($sort, $limit, $skip, $filter, $expend ) => {
 }
 
 
-// add like
+// add Favorite
 const Add = (user, post) => {
 
-    return new Promise((resolve, reject) => { // check like
+    return new Promise((resolve, reject) => { // check Favorite
 
-        const newLike = new LikesModel({ user, post })
+        const newFavorite = new FavoritesModel({ user, post })
 
-        newLike.save()
+        newFavorite.save()
             .then(doc => { resolve(doc["_id"]) })
             .catch(err => { reject(err) })
     })
 }
 
 
-// remove like  
+// remove Favorite  
 const Remove = (id) => {
 
-    return new Promise((resolve, reject) => { // update like
+    return new Promise((resolve, reject) => { // update Favorite
 
         // check id
-        LikesModel.findByIdAndDelete({}).where("_id").equals(id)
-            .then(like => {
+        FavoritesModel.findByIdAndDelete({}).where("_id").equals(id)
+            .then(Favorite => {
 
                 //check res here
-                if (!like) {
+                if (!Favorite) {
                     reject("did not match any document")
                 } else {
                     resolve("removed")
