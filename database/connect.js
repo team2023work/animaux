@@ -10,7 +10,18 @@ function Connect(){
     .then(() => {
         console.log("db start")
 
-    }).catch(err => { console.log(err) })
+    }).catch(err => {
+
+        console.log("db error")
+        console.log("db error")
+        console.log("db error")
+        console.log("db error")
+        console.log("db error")
+        console.log("db error")
+        console.log("db error")
+
+        console.log(err)
+     })
 
 }
  
