@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"karim...\",
+    "test": "echo \"karim...\"",
     "start_1": "NODE_ENV=production node server",
     "start": "node server",
     "dev": "nodemon server"
