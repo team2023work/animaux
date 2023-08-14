@@ -6,6 +6,7 @@ const FC = filter => {
 const LC = (longitude, latitude) => {
     let localisation = {}
 
+    
     localisation =
         (!!longitude && !!latitude) ? {
             localisation: {
@@ -17,7 +18,7 @@ const LC = (longitude, latitude) => {
                 },
 
             }
-
+ 
         } : localisation
 
     return !!localisation.$near ? {localisation: localisation.localisation} : {}

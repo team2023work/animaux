@@ -59,6 +59,7 @@ const Host = {
           create: `/create`,
           edit: `/edit/:id`,
           signal: `/signal/:id`,
+          statistics: `/statistics`,
       },
 
       Comments: {

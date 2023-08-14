@@ -5,7 +5,7 @@ const cors = require("cors")
 const Connect = require("./database/connect")
 // const swaggerUi = require('swagger-ui-express')
 // const swaggerDocument = require('./swagger.json')
-const { ApiEndpoints, Host } = require("./common/apiEndpoints")
+const { ApiEndpoints } = require("./common/apiEndpoints")
 
 // const options = {
 //     swaggerOptions: {

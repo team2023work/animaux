@@ -11,6 +11,10 @@ const { Edit , Add, Signal } = require("../middleware/validators/post")
 // list 
 router.get(ApiEndpoints.Posts.list, PostController.Get)
 
+// statistics 
+router.get(ApiEndpoints.Posts.statistics, PostController.Statistics)
+
+
 // create
 router.post(ApiEndpoints.Posts.create, authMiddleware, Add, HandleValidatorError, PostController.Add , handleError)
 

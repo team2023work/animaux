@@ -13,6 +13,17 @@ const Get = (req, res) => {
     })
 }
 
+  
+// get Statistics
+const Statistics = (req, res) => {
+
+    PostsService.Statistics().then(result => {
+        res.status(codes.ok).json({ result })
+    }).catch(err => {
+        res.status(codes.badRequest).json({ err: true, msg: err?.message || err })
+    })
+}
+
 
 
 // add post
@@ -55,4 +66,4 @@ const Signal = (req, res) => {
 
 
 
-module.exports = { Get, Add, Edit, Signal }
+module.exports = { Get, Add, Edit, Signal, Statistics }

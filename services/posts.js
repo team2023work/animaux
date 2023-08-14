@@ -5,14 +5,6 @@ const { OC, FC, QC, LC } = require("../common/getChecker")
 // get post
 const Get = ($sort, $limit, $skip, $filter, $expend, $q, $longitude, $latitude) => {
 
-    return new Promise((resolve, reject) => { // get post
-
-        $expend =
-            $expend === "all" ? [
-                { path: 'category', model: "category" },
-                { path: 'user', model: "user" },
-            ] : $expend
-
         return new Promise((resolve, reject) => { // get post
 
             $expend =
@@ -31,8 +23,36 @@ const Get = ($sort, $limit, $skip, $filter, $expend, $q, $longitude, $latitude) 
 
         })
 
-    })
 }
+
+
+// get Statistics
+const Statistics = () => {
+
+
+        return new Promise((resolve, reject) => { // get Statistics
+
+            PostsModel.aggregate([
+                {
+                    $facet: {
+                        active: [   { $match: { status: true }}  , { $count: "active" } ],
+                        inActive: [ { $match: { status: false }} , { $count: "inActive" } ],
+                    }
+                },
+                { $unwind: "$active" },
+                { $unwind: "$inActive" },
+                { $project: { active: "$active.active",  inActive: "$inActive.inActive" } }
+            ]).exec().then(([posts]) => {
+                     
+                resolve(posts)
+
+            }).catch(err => { reject(err) })
+
+        })
+
+}
+
+
 
 
 // add post
@@ -103,4 +123,4 @@ const Signal = (id) => {
 }
 
 
-module.exports = { Get, Add, Edit, Signal }
+module.exports = { Get, Add, Edit, Signal, Statistics }
